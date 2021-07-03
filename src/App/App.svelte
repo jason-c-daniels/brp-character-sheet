@@ -11,12 +11,13 @@
     import '@material/mwc-snackbar';
     import downloadToClient from 'file-saver';
     import Dropzone from "svelte-file-dropzone";
-    import Worksheet from "../components/Worksheet";
+    import Worksheet from "../components/MainCharacterSheet";
     import getNewWorksheet, {validateWorksheet} from "../model/worksheet";
     import LocalStorageRepository from '../repository/localStorageRepository';
     import {applicationName, fileExtension, sheetPrefix, sheetSuffix} from '../applicationSettings'
 
     import About from '../components/About/About.md';
+    import { onMount } from 'svelte';
 
     let activeIndex;
 
@@ -67,10 +68,10 @@
     function handleSaveWorksheetClicked() {
         let blob = new Blob([JSON.stringify(worksheet, null, 2)], {type: 'text/plain;charset=utf-8'});
         ls.save(suffix,worksheet);
-        showSnackBar('Worksheet saved to local storage.');
+        showSnackBar('MainCharacterSheet saved to local storage.');
         if (saveAlsoDownloads) {
             setTimeout(() => {
-                let fileName = `${worksheet.name}.${file_ext}`;
+                let fileName = `${worksheet.identity.name}.${file_ext}`;
                 downloadToClient(blob, fileName);
                 showSnackBar(`Sending file: ${fileName}. Check your downloads folder.`);
             }, 2000);
@@ -97,7 +98,7 @@
                 let text = e.target.result;
                 let tempWorksheet = JSON.parse(text);
                 if (validateWorksheet(tempWorksheet)) {
-                    setTimeout(() => showSnackBar("Worksheet loaded."), 250);
+                    setTimeout(() => showSnackBar("Character sheet loaded."), 250);
                     worksheet = tempWorksheet;
                     activeIndex = 0;
                 }
@@ -136,7 +137,10 @@
         snackBarText = text;
         snackBarElement.show();
     }
-
+    disabled='false';
+    setTimeout( ()=>{
+        disabled='';
+    }, 10);
 </script>
 <style>
     @import "App.css";
@@ -158,11 +162,11 @@
         <div slot="title"><span>{app_name}</span></div>
         <mwc-tab-bar slot="actionItems" style="display: inline-block" bind:this={tabBarElement}
                      activeIndex={activeIndex} on:MDCTabBar:activated={handleTabActivated}>
-            <mwc-tab label="Worksheet"></mwc-tab>
+            <mwc-tab label="Character Sheet"></mwc-tab>
             <mwc-tab label="About"></mwc-tab>
         </mwc-tab-bar>
         <mwc-icon-button icon="note_add" slot="actionItems" on:click={handleNewWorksheetClicked}
-                         {disabled}></mwc-icon-button>
+                         disabled={disabled}></mwc-icon-button>
         {#if showLoadPane}
             <mwc-icon-button icon="cancel" slot="actionItems" on:click={hideLoadPane}></mwc-icon-button>
         {:else}

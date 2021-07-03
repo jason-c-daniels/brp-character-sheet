@@ -1,9 +1,11 @@
 <style>
-    @import "Component.css";
+    @import "WeaponOrShieldEditor.css";
 </style>
 
 <script>
+    import WeaponOrShield from "../../../../model/WeaponOrShield";
 
+    export let weaponOrShield=new WeaponOrShield();
 </script>
 
 <!--

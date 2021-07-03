@@ -1,0 +1,27 @@
+input {
+    border:none;
+    border-bottom: #7f7f7f 0.5pt solid;
+    margin:0;
+}
+input[type="number"] {
+    width: 2.2rem;
+    text-align: right;
+}
+
+textarea {
+    border: #7f7f7f 0.5pt solid;
+    margin:0;
+    width: 100%;
+    height: 2.5rem;
+    resize: none;
+}
+
+#name, #profession {
+    width: 8.5em;
+}
+
+#age, #handedness {width: 3em;}
+#race, #gender { width: 6.5em;}
+#height-and-weight {width: 9em;}
+
+.block-label {display: block}

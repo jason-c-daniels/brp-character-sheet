@@ -12,27 +12,15 @@
 .header {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: var(--header-font-height);
-    background-color: var(--header-primary-background-color);
-    color: var(--header-primary-color);
+    color: var(--header-primary-background-color);
+    background-color: var(--header-primary-color);
     text-align: left;
     height: auto;
     overflow: hidden;
     padding-top: 0;
-    text-transform: uppercase;
+    text-transform: capitalize;
     margin-bottom: 0.5rem;
-    --notchSize: 9px;
 
-    clip-path:
-            polygon(
-                    0% var(--notchSize),                  /*UL*/
-                    var(--notchSize) 0%,
-                    100%  0%,     /*UR*/
-                    100%  0%,
-                    100% calc(100% - var(--notchSize)),   /*LR*/
-                    calc(100% - var(--notchSize)) 100%,
-                    0% 100%,                /*LL*/
-                    0% 100%
-            );
 }
 
 .header span {
@@ -40,9 +28,9 @@
     display: block;
     height: var(--header-span-height);
     width: 100%;
-    font-weight: 900;
+    font-weight: 500;
     margin-bottom: 0.3rem;
-    margin-top: -0.1rem;
+    margin-top: 0.3rem;
 }
 
 .hint {
@@ -54,6 +42,8 @@
 }
 
 .content {
+    font-family: "EB Garamond",serif;
+    font-size: 0.75rem;
     padding: 0;
     margin: 0;
 }

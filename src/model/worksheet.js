@@ -1,10 +1,22 @@
+import {getDefaultIdentity} from "./Identity";
+import {getDefaultCharacteristics} from "./Characteristic";
+import {getDefaultDerivedCharacteristics} from "./DerivedCharacteristic";
+import {getDefaultSkills} from "./Skill";
+import {getDefaultEquipment} from "./EquipmentItem";
+import {getDefaultWeaponsAndShields} from "./WeaponOrShield";
+import {getDefaultArmor} from "./Armor";
+
 export default function getNewWorksheet() {
     return {
-        name: "",
-        otherData: ""
+        identity: getDefaultIdentity(),
+        characteristics : getDefaultCharacteristics(),
+        derivedCharacteristics : getDefaultDerivedCharacteristics(),
+        skills : getDefaultSkills(),
+        equipment: getDefaultEquipment(),
+        weaponsAndShields : getDefaultWeaponsAndShields(),
+        armor : getDefaultArmor()
     };
 }
-
 
 export function validateWorksheet(worksheet) {
     let result = true;
@@ -14,7 +26,7 @@ export function validateWorksheet(worksheet) {
                  like maybe a JSON DTD? */
 
         // for now try accessing things in a way that will throw an exception.
-        let _ = worksheet.name.toString();
+        let _ = worksheet.identity.name.toString();
 
     } catch (err) {
         console.log(err);

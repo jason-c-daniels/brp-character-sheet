@@ -1,5 +1,5 @@
 <style>
-    @import "Component.css";
+    @import "PowerPointsEditor.css";
 </style>
 
 <script>

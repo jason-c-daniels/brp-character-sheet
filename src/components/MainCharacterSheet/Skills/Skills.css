@@ -1,0 +1,5 @@
+.container {
+    columns:3;
+    column-gap: 0.05rem;
+    letter-spacing: -0.1rem
+}

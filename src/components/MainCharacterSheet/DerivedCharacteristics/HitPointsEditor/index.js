@@ -1,0 +1,1 @@
+export {default as default} from './HitPointsEditor.svelte';

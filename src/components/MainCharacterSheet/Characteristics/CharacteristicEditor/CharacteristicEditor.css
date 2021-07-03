@@ -1,0 +1,18 @@
+
+input  {
+    width: 2.2rem;
+}
+
+input[type="number"] {
+    border:none;
+    border-bottom: #7f7f7f 0.5pt solid;
+    margin:0;
+    width: 2.2rem;
+    text-align: right;
+}
+
+input[type="text"] {
+    border:none;
+    margin:0;
+    letter-spacing: -0.01rem
+}

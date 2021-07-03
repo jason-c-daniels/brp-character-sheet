@@ -1,6 +1,7 @@
 :root {
-    --logo-height: 60px;
-    --logo-width: 140px;
+    --aspect-ratio: calc(566/675);
+    --logo-height: 45px;
+    --logo-width: calc(var(--logo-height)/var(--aspect-ratio));
     --logo-bar-bottom-padding: 0.1rem;
 }
 
@@ -8,15 +9,15 @@
     height: var(--logo-height);
     width: var(--logo-width);
     margin-right: 0.5rem;
-    float: right;
 }
 .logo,
-h2 {display: inline-block; margin:0;}
+h2 { display: inline-block; margin:0; }
 h2 {
-    margin-top:0.9rem;
+    text-align: center; height:var(--logo-height); vertical-align: middle; width:90%;
 }
 
 .logo-bar {
     height: calc(var(--logo-height) + var(--logo-bar-bottom-padding));
+    width: 100%;
     padding-bottom: var(--logo-bar-bottom-padding);
 }
