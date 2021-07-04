@@ -4,24 +4,31 @@
     import "@webcomponents/webcomponentsjs/webcomponents-loader.js";
     import '@material/mwc-top-app-bar-fixed';
     import '@material/mwc-icon-button';
+    import '@material/mwc-button';
     import '@material/mwc-drawer';
     import '@material/mwc-tab';
     import '@material/mwc-tab-bar';
     import '@material/mwc-icon';
+    import '@material/mwc-list';
+    import '@material/mwc-list-item';
     import '@material/mwc-snackbar';
     import downloadToClient from 'file-saver';
     import Dropzone from "svelte-file-dropzone";
     import Worksheet from "../components/MainCharacterSheet";
-    import getNewWorksheet, {validateWorksheet} from "../model/worksheet";
+    import getNewWorksheet, {getBlankWorksheet, validateWorksheet} from "../model/worksheet";
     import LocalStorageRepository from '../repository/localStorageRepository';
     import {applicationName, fileExtension, sheetPrefix, sheetSuffix} from '../applicationSettings'
 
     import About from '../components/About/About.md';
     import { onMount } from 'svelte';
 
+    const MAKE_BLANK_INDEX=0;
+    const ROLL_CHARACTERISTICS_INDEX=1;
+    const SET_DEFAULTS_INDEX=2;
+
     let activeIndex;
 
-    let snackBarElement, tabBarElement;
+    let snackBarElement, tabBarElement, drawerElement,listElement;
 
     let disabled = "";
     let showLoadPane = false;
@@ -86,7 +93,7 @@
     function handleNewWorksheetClicked() {
         worksheet = getNewWorksheet();
         activeIndex = 0;
-        showSnackBar('Created a new worksheet.');
+        showSnackBar('Created a new character sheet.');
     }
 
     function handleFilesSelect(e) {
@@ -141,6 +148,25 @@
     setTimeout( ()=>{
         disabled='';
     }, 10);
+
+    function toggleDrawer() {
+        drawerElement.open=!drawerElement.open;
+    }
+
+    function handleAction(event){
+        var x=listElement.index;
+        if (x === MAKE_BLANK_INDEX) {
+            worksheet = getBlankWorksheet();
+        }
+        else if (x === ROLL_CHARACTERISTICS_INDEX) {
+            alert('roll characteristics');
+
+        }
+        else if (x === SET_DEFAULTS_INDEX) {
+            alert('set defaults');
+        }
+    }
+
 </script>
 <style>
     @import "App.css";
@@ -158,7 +184,19 @@
 <GlobalCss/>
 
 <main class="noprint">
-    <mwc-top-app-bar-fixed>
+    <mwc-drawer hasHeader type="modal" bind:this={drawerElement}>
+        <span slot="title">Actions</span>
+        <span slot="subtitle">Select the action to perform</span>
+        <div style="padding: 2pt">
+            <mwc-list on:action={handleAction} bind:this={listElement}>
+                <mwc-list-item>Make blank</mwc-list-item>
+                <mwc-list-item>Roll characteristics</mwc-list-item>
+                <mwc-list-item>Set skill defaults</mwc-list-item>
+            </mwc-list>
+        </div>
+        <div slot="appContent">
+            <mwc-top-app-bar-fixed on:MDCTopAppBar:nav={toggleDrawer}>
+                <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
         <div slot="title"><span>{app_name}</span></div>
         <mwc-tab-bar slot="actionItems" style="display: inline-block" bind:this={tabBarElement}
                      activeIndex={activeIndex} on:MDCTabBar:activated={handleTabActivated}>
@@ -185,6 +223,7 @@
             <div id="content" style="padding:0">
                 {#if activeIndex === 0}
                     <Worksheet bind:worksheet={worksheet}/>
+                    <div style="width: 10pt; height: 0.25in"></div>
                 {:else if activeIndex === 1}
                     <About />
                 {:else}
@@ -198,6 +237,8 @@
             <mwc-icon-button icon="close" slot="dismiss"></mwc-icon-button>
         </mwc-snackbar>
     </mwc-top-app-bar-fixed>
+        </div>
+    </mwc-drawer>
 </main>
 
 <main class="printme">

@@ -70,3 +70,11 @@ export function getDefaultSkills() {
         new Skill("Track (10)",10)
     ];
 }
+
+export function getBlankSkills() {
+    let skills=getDefaultSkills();
+    skills.forEach(function(part, index, theArray) {
+        theArray[index].value=null;
+    });
+    return skills;
+}

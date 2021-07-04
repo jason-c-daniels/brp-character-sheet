@@ -1,9 +1,9 @@
-import {getDefaultIdentity} from "./Identity";
-import {getDefaultCharacteristics} from "./Characteristic";
-import {getDefaultDerivedCharacteristics} from "./DerivedCharacteristic";
-import {getDefaultSkills} from "./Skill";
+import {getBlankIdentity, getDefaultIdentity} from "./Identity";
+import {getBlankCharacteristics, getDefaultCharacteristics} from "./Characteristic";
+import {getBlankDerivedCharacteristics, getDefaultDerivedCharacteristics} from "./DerivedCharacteristic";
+import {getBlankSkills, getDefaultSkills} from "./Skill";
 import {getDefaultEquipment} from "./EquipmentItem";
-import {getDefaultWeaponsAndShields} from "./WeaponOrShield";
+import {getBlankWeaponsAndShields, getDefaultWeaponsAndShields} from "./WeaponOrShield";
 import {getDefaultArmor} from "./Armor";
 
 export default function getNewWorksheet() {
@@ -17,6 +17,21 @@ export default function getNewWorksheet() {
         armor : getDefaultArmor()
     };
     console.log("new worksheet created");
+    return res;
+}
+
+export function getBlankWorksheet() {
+    let res= {
+        identity: getBlankIdentity(),
+        characteristics : getBlankCharacteristics(),
+        derivedCharacteristics : getBlankDerivedCharacteristics(),
+        skills : getBlankSkills(),
+        equipment: getDefaultEquipment(),
+        weaponsAndShields : getBlankWeaponsAndShields(),
+        armor : getDefaultArmor()
+    };
+    res.weaponsAndShields[0].points=null;
+    res.armor.points=null;
     return res;
 }
 

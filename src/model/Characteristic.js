@@ -1,3 +1,5 @@
+import {getDefaultSkills} from "./Skill";
+
 export default class Characteristic {
     name;
     value;
@@ -24,4 +26,13 @@ export function getDefaultCharacteristics() {
         new Characteristic("APP", 0, "Charisma Roll")
     ];
 
+}
+
+export function getBlankCharacteristics() {
+    let cs=getDefaultCharacteristics();
+    cs.forEach(function(part) {
+        part.value="";
+        part.roll="";
+    });
+    return cs;
 }

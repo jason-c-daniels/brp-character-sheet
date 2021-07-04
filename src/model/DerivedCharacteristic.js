@@ -44,3 +44,13 @@ export function getDefaultDerivedCharacteristics(characteristics=getDefaultChara
     return new DerivedCharacteristic(characteristics);
 }
 
+export function getBlankDerivedCharacteristics(characteristics=getDefaultCharacteristics()) {
+    let res= new DerivedCharacteristic(characteristics);
+    res.maxPowerPoints="";
+    res.powerPoints="";
+    res.maxHitPoints="";
+    res.damageBonus="";
+    res.move="";
+    res.hitPoints="";
+    return res;
+}

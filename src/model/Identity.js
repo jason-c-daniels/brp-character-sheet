@@ -34,3 +34,7 @@ export default class Identity {
 export function getDefaultIdentity() {
     return new Identity();
 }
+
+export function getBlankIdentity() {
+    return new Identity("",null,null,null,null,null,null,null,null)
+}

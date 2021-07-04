@@ -1,3 +1,5 @@
+import {getDefaultCharacteristics} from "./Characteristic";
+
 export default class WeaponOrShield {
     name;
     value;
@@ -37,4 +39,18 @@ export function getDefaultWeaponsAndShields() {
         new WeaponOrShield(),
         new WeaponOrShield()
     ];
+}
+
+export function getBlankWeaponsAndShields() {
+    let cs=getDefaultWeaponsAndShields();
+    cs.forEach(function(part) {
+        if (part.name !== "Brawl") {
+            part.hands = "";
+            part.value = "";
+        }
+        else {
+            part.value ="";
+        }
+    });
+    return cs;
 }
