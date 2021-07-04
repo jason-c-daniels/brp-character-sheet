@@ -7,11 +7,14 @@ import {getBlankWeaponsAndShields, getDefaultWeaponsAndShields} from "./WeaponOr
 import {getDefaultArmor} from "./Armor";
 
 export default function getNewWorksheet() {
+    let characteristics=getDefaultCharacteristics();
+    let derivedCharacteristics=getDefaultDerivedCharacteristics(characteristics);
+    let skills=getDefaultSkills(characteristics);
     let res= {
         identity: getDefaultIdentity(),
-        characteristics : getDefaultCharacteristics(),
-        derivedCharacteristics : getDefaultDerivedCharacteristics(),
-        skills : getDefaultSkills(),
+        characteristics : characteristics,
+        derivedCharacteristics : derivedCharacteristics,
+        skills : skills,
         equipment: getDefaultEquipment(),
         weaponsAndShields : getDefaultWeaponsAndShields(),
         armor : getDefaultArmor()

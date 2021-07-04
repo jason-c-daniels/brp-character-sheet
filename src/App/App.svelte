@@ -21,6 +21,8 @@
 
     import About from '../components/About/About.md';
     import { onMount } from 'svelte';
+    import {getDefaultCharacteristics} from "../model/Characteristic";
+    import {getDefaultSkills} from "../model/Skill";
 
     const MAKE_BLANK_INDEX=0;
     const ROLL_CHARACTERISTICS_INDEX=1;
@@ -159,11 +161,11 @@
             worksheet = getBlankWorksheet();
         }
         else if (x === ROLL_CHARACTERISTICS_INDEX) {
-            alert('roll characteristics');
-
+            worksheet.characteristics=getDefaultCharacteristics();
+            worksheet.skills=getDefaultSkills(worksheet.characteristics);
         }
         else if (x === SET_DEFAULTS_INDEX) {
-            alert('set defaults');
+            worksheet.skills=getDefaultSkills(worksheet.characteristics);
         }
     }
 

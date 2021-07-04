@@ -1,3 +1,6 @@
+import {getDefaultCharacteristics} from "./Characteristic";
+import {getItemByName} from "./DerivedCharacteristic";
+
 export default class Skill {
     name;
     value;
@@ -9,7 +12,11 @@ export default class Skill {
     }
 }
 
-export function getDefaultSkills() {
+export function getDefaultSkills(characteristics=getDefaultCharacteristics()) {
+    let int=getItemByName(characteristics,'INT').value;
+    let pow=getItemByName(characteristics,'POW').value;
+    let dex=getItemByName(characteristics,'DEX').value;
+    console.log("dex="+dex);
     return [
         new Skill("Appraise (15)", 15),
         new Skill("Art (___________) (05)", 5),
@@ -21,7 +28,7 @@ export function getDefaultSkills() {
         new Skill("Craft (___________) (05)",5),
         new Skill("Demolition (01)", 1),
         new Skill("Disguise (01)", 1),
-        new Skill("Dodge (DEX×2)"),
+        new Skill("Dodge (DEX×2)", dex*2),
         new Skill("Drive (___________) (var)"),
         new Skill("Energy Weapon (______) (var)"),
         new Skill("Etiquette (05)",5),
@@ -30,7 +37,7 @@ export function getDefaultSkills() {
         new Skill("Firearm (___________) (var)"),
         new Skill("First Aid (var)"),
         new Skill("Fly (var)"),
-        new Skill("Gaming (INT+POW)"),
+        new Skill("Gaming (INT+POW)",int+pow),
         new Skill("Grapple (25)",25),
         new Skill("Heavy Machine (______) (01)",1),
         new Skill("Heavy Weapon (______) (var)"),
@@ -38,7 +45,7 @@ export function getDefaultSkills() {
         new Skill("Insight (05)",5),
         new Skill("Jump (25)",25),
         new Skill("Knowledge (__________) (var)"),
-        new Skill("Lang., Own (______) (INT×5)"),
+        new Skill("Lang., Own (______) (INT×5)",int*5),
         new Skill("Lang., Other (_________) (00)",0),
         new Skill("Listen (25)",25),
         new Skill("Literacy (___________) (var)"),
@@ -50,7 +57,7 @@ export function getDefaultSkills() {
         new Skill("Perform (___________) (05)",5),
         new Skill("Persuade (15)",15),
         new Skill("Pilot (___________) (01)",1),
-        new Skill("Projection (DEX×2)"),
+        new Skill("Projection (DEX×2)", dex*2),
         new Skill("Psychotherapy (01)",1),
         new Skill("Repair (___________) (15)",15),
         new Skill("Research (25)",25),

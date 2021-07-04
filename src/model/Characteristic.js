@@ -1,4 +1,5 @@
 import {getDefaultSkills} from "./Skill";
+import DiceRoller from 'rpg-dice-roller';
 
 export default class Characteristic {
     name;
@@ -15,15 +16,16 @@ export default class Characteristic {
 }
 
 export function getDefaultCharacteristics() {
-
+    var diceRoller = new DiceRoller.DiceRoller();
+    console.log("diceRoller.roll(\"3d6\")="+diceRoller.roll("3d6").total);
     return [
-        new Characteristic("STR", 0, "Effort Roll"),
-        new Characteristic("CON", 0, "Stamina Roll"),
-        new Characteristic("SIZ", 10),
-        new Characteristic("INT", 0, "Idea Roll"),
-        new Characteristic("POW", 0, "Luck Roll"),
-        new Characteristic("DEX", 0, "Agility Roll"),
-        new Characteristic("APP", 0, "Charisma Roll")
+        new Characteristic("STR", diceRoller.roll("3d6").total, "Effort Roll"),
+        new Characteristic("CON", diceRoller.roll("3d6").total, "Stamina Roll"),
+        new Characteristic("SIZ", diceRoller.roll("2d6+6").total),
+        new Characteristic("INT", diceRoller.roll("2d6+6").total, "Idea Roll"),
+        new Characteristic("POW", diceRoller.roll("3d6").total, "Luck Roll"),
+        new Characteristic("DEX", diceRoller.roll("3d6").total, "Agility Roll"),
+        new Characteristic("APP", diceRoller.roll("3d6").total, "Charisma Roll")
     ];
 
 }
