@@ -23,6 +23,7 @@
     import { onMount } from 'svelte';
     import {getDefaultCharacteristics} from "../model/Characteristic";
     import {getDefaultSkills} from "../model/Skill";
+    import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
 
     const MAKE_BLANK_INDEX=0;
     const ROLL_CHARACTERISTICS_INDEX=1;
@@ -162,6 +163,7 @@
         }
         else if (x === ROLL_CHARACTERISTICS_INDEX) {
             worksheet.characteristics=getDefaultCharacteristics();
+            worksheet.derivedCharacteristics=getDefaultDerivedCharacteristics(worksheet.characteristics);
             worksheet.skills=getDefaultSkills(worksheet.characteristics);
         }
         else if (x === SET_DEFAULTS_INDEX) {
