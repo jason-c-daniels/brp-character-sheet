@@ -10,7 +10,7 @@
 </script>
 
 <Section title="Identity" >
-    <div style="margin-left: 0.7rem;">
+    <div style="margin-left: 0.7rem; width:18.5rem">
         <div>
             <label title="Name" for="name" >Name</label>
             <input id="name" type="text" bind:value={identity.name}>
@@ -22,7 +22,7 @@
             <input id="race" type="text" bind:value={identity.race} >
 
             <label title="Age" for="age" >Age</label>
-            <input id="age" type="number" bind:value={identity.age}>
+            <input id="age" type="number" min="0" max="999" bind:value={identity.age} style="text-align: right">
 
             <label title="Gender" for="gender" >Gender</label>
             <input id="gender" type="text" bind:value={identity.gender}>

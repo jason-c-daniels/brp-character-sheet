@@ -8,9 +8,11 @@
     export let weaponOrShield=new WeaponOrShield();
 </script>
 
-<!--
-    TODO: Put component markup here.
-
-    TODO: Rename MainCharacterSheet.svelte and MainCharacterSheet.css (and all the index.js reference)
-          to the match containing folder name. (This will help you keep track of the component you're working on)
--->
+<tr>
+    <td><input bind:value={weaponOrShield.name} style="width:8em;"/></td>
+    <td><input bind:value={weaponOrShield.value}  style="width:2em; text-align: center"/></td>
+    <td><input bind:value={weaponOrShield.damage}  style="width:8em;"/></td>
+    <td><input bind:value={weaponOrShield.hands}  style="width:3em; text-align: center"/></td>
+    <td><input bind:value={weaponOrShield.hitPoints}  style="width:2em; text-align: center"/></td>
+    <td><input bind:value={weaponOrShield.range}  style="width:5em; text-align: center"/></td>
+</tr>

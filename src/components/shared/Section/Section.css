@@ -43,7 +43,8 @@
 
 .content {
     font-family: "EB Garamond",serif;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    letter-spacing: -0.05rem;
     padding: 0;
     margin: 0;
 }

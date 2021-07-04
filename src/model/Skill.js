@@ -38,8 +38,8 @@ export function getDefaultSkills() {
         new Skill("Insight (05)",5),
         new Skill("Jump (25)",25),
         new Skill("Knowledge (__________) (var)"),
-        new Skill("Language, Own (______) (INT×5)"),
-        new Skill("Language, Other (_________) (00)",0),
+        new Skill("Lang., Own (______) (INT×5)"),
+        new Skill("Lang., Other (_________) (00)",0),
         new Skill("Listen (25)",25),
         new Skill("Literacy (___________) (var)"),
         new Skill("Martial Arts (01)",1),
@@ -65,7 +65,7 @@ export function getDefaultSkills() {
         new Skill("Strategy (01)",1),
         new Skill("Swim (25)",25),
         new Skill("Teach (10)",10),
-        new Skill("Tech. Skill (__________) (00)",1),
+        new Skill("Technical Skill (_________) (00)",1),
         new Skill("Throw (25)",25),
         new Skill("Track (10)",10)
     ];

@@ -7,7 +7,7 @@ import {getDefaultWeaponsAndShields} from "./WeaponOrShield";
 import {getDefaultArmor} from "./Armor";
 
 export default function getNewWorksheet() {
-    return {
+    let res= {
         identity: getDefaultIdentity(),
         characteristics : getDefaultCharacteristics(),
         derivedCharacteristics : getDefaultDerivedCharacteristics(),
@@ -16,6 +16,8 @@ export default function getNewWorksheet() {
         weaponsAndShields : getDefaultWeaponsAndShields(),
         armor : getDefaultArmor()
     };
+    console.log("new worksheet created");
+    return res;
 }
 
 export function validateWorksheet(worksheet) {

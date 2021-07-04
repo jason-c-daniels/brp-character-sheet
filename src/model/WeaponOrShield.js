@@ -29,6 +29,12 @@ export function getDefaultWeaponsAndShields() {
         new WeaponOrShield(),
         new WeaponOrShield(),
         new WeaponOrShield(),
+        new WeaponOrShield(),
+        new WeaponOrShield(),
+        new WeaponOrShield(),
+        new WeaponOrShield(),
+        new WeaponOrShield(),
+        new WeaponOrShield(),
         new WeaponOrShield()
     ];
 }

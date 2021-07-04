@@ -1,3 +1,35 @@
-/** This is the style information for MainCharacterSheet.svelte */
+.container {
+    margin-top: 9pt;
+    border: #7f7f7f 1pt solid;
+    padding:0;
+}
 
-/* TODO: Fill in the styles needed to make MainCharacterSheet.svelte work. */
+span {
+    display: block;
+    text-align: center;
+}
+
+.center-title {
+
+    font-weight: bold;
+}
+
+.container div {
+    border-top: #7f7f7f 1pt solid;
+    display: inline-block;
+    margin: 0;
+    width: 49.3%;
+}
+
+
+
+div.current {
+    border-right: #7f7f7f 1pt solid;
+}
+
+input {
+    width:100%;
+    font-size: 1.5rem;
+    border:none;
+    text-align: center;
+}

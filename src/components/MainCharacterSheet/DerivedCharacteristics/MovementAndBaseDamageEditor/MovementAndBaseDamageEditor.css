@@ -1,3 +1,15 @@
-/** This is the style information for MainCharacterSheet.svelte */
+input  {
+    border: none;
+    width: 3rem;
+    border-bottom: #7f7f7f 0.5pt solid;
+    padding-left:0.2rem;
+    margin:0;
+}
 
-/* TODO: Fill in the styles needed to make MainCharacterSheet.svelte work. */
+input[type="number"] {
+    text-align: right;
+}
+
+input[type="text"] {
+    letter-spacing: -0.01rem
+}

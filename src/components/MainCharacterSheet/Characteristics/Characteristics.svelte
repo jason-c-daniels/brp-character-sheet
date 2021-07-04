@@ -11,9 +11,9 @@
 </script>
 
 <Section title="Characteristics">
-    <div style="margin-left: 0.7rem;">
+    <div style="margin-left: 0.7rem;width:12rem">
     {#each characteristics as characteristic}
-        <CharacteristicEditor bind:characteristic={characteristic} />
+        <CharacteristicEditor bind:characteristic={characteristic} on:characteristic_changed/>
     {/each}
     </div>
 </Section>

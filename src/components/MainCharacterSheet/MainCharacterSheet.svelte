@@ -5,7 +5,8 @@
 
 <script>
 
-    import LogoBar from '../shared/LogoBar';
+
+import LogoBar from '../shared/LogoBar';
     import getNewWorksheet from '../../model/worksheet'
     import Identity from "./Identity";
     import Characteristics from "./Characteristics";
@@ -14,15 +15,20 @@
     import WeaponsAndShields from "./WeaponsAndShields";
     import Armor from "./Armor";
     import Equipment from "./Equipment";
+import DerivedCharacteristic from "../../model/DerivedCharacteristic";
 
     export let worksheet = getNewWorksheet();
+
+    function characteristicChanged(event) {
+        worksheet.derivedCharacteristics = new DerivedCharacteristic(worksheet.characteristics);
+    }
 </script>
 
 <div class="page" >
     <LogoBar />
     <div class="flex-row">
         <Identity bind:identity={worksheet.identity}/>
-        <Characteristics bind:characteristics={worksheet.characteristics} />
+        <Characteristics bind:characteristics={worksheet.characteristics} on:characteristic_changed={characteristicChanged}/>
         <DerivedCharacteristics bind:derivedCharacteristics={worksheet.derivedCharacteristics}/>
     </div>
     <Skills bind:skills={worksheet.skills}/>

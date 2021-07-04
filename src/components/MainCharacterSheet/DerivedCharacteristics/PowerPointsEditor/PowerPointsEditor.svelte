@@ -3,12 +3,17 @@
 </style>
 
 <script>
-
+    export let derivedCharacteristics = getDefaultDerivedCharacteristics();
 </script>
 
-<!--
-    TODO: Put component markup here.
-
-    TODO: Rename MainCharacterSheet.svelte and MainCharacterSheet.css (and all the index.js reference)
-          to the match containing folder name. (This will help you keep track of the component you're working on)
--->
+<div class="container">
+    <span class="center-title">Power Points</span>
+    <div class="current">
+        <input type="number" min="1" max="{derivedCharacteristics.maxPowerPoints}" bind:value="{derivedCharacteristics.powerPoints}"/>
+        <span>Current</span>
+    </div>
+    <div>
+        <input type="number" min="1" max="100" bind:value="{derivedCharacteristics.maxPowerPoints}"/>
+        <span>Maximum</span>
+    </div>
+</div>

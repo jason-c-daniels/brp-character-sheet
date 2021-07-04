@@ -3,12 +3,12 @@
 </style>
 
 <script>
-
+    export let derivedCharacteristics = getDefaultDerivedCharacteristics();
 </script>
 
-<!--
-    TODO: Put component markup here.
-
-    TODO: Rename MainCharacterSheet.svelte and MainCharacterSheet.css (and all the index.js reference)
-          to the match containing folder name. (This will help you keep track of the component you're working on)
--->
+<div>
+    <span>MOV</span>
+    <input type="number" min="1" max="100"  bind:value="{derivedCharacteristics.move}"/>
+    <span>Damage Bonus</span>
+    <input type="text" min="1" max="100"  bind:value="{derivedCharacteristics.damageBonus}"/>
+</div>

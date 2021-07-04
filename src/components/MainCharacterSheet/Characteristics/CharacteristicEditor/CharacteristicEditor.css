@@ -7,7 +7,6 @@ input[type="number"] {
     border:none;
     border-bottom: #7f7f7f 0.5pt solid;
     margin:0;
-    width: 2.2rem;
     text-align: right;
 }
 
@@ -15,4 +14,20 @@ input[type="text"] {
     border:none;
     margin:0;
     letter-spacing: -0.01rem
+}
+
+
+.name,
+.roll-name {
+    display: inline-block;
+    margin-left: 0.2rem;
+}
+
+.name {
+    width: 2.0rem;
+}
+
+.roll-name {
+    width:4.3rem;
+    padding-left: 0.5rem;
 }

@@ -1,4 +1,4 @@
-import Characteristics from "./Characteristic";
+import  {getDefaultCharacteristics} from "./Characteristic";
 
 export default class DerivedCharacteristic {
     move;
@@ -9,14 +9,20 @@ export default class DerivedCharacteristic {
     damageBonus;
 
     constructor(
-        characteristics=new Characteristics()
+        characteristics=getDefaultCharacteristics()
     ) {
+        const str = getItemByName(characteristics, 'STR').value;
+        const con = getItemByName(characteristics, 'CON').value;
+        const pow = getItemByName(characteristics, 'POW').value;
+        const siz = getItemByName(characteristics, 'SIZ').value;
+        console.log('siz='+siz.toString());
         this.move=10;
-        this.maxHitPoints=Math.round((characteristics.constitution+characteristics.size)/2);
+        this.maxHitPoints=Math.round((con+siz)/2);
         this.hitPoints=this.maxHitPoints;
-        this.maxPowerPoints=characteristics.power;
-        this.powerPoints=characteristics.power;
-        let db=characteristics.strength+characteristics.size;
+        this.maxPowerPoints=pow;
+        this.powerPoints=pow;
+        let db=str+siz;
+        console.log('db='+db.toString());
         if (db <= 12) {this.damageBonus="-1D6";}
         else if (db <= 16) {this.damageBonus="-1D4";}
         else if (db <= 24) {this.damageBonus="None";}
@@ -26,7 +32,15 @@ export default class DerivedCharacteristic {
     }
 }
 
-export function getDefaultDerivedCharacteristics(characteristics=new Characteristics()) {
+function getItemByName(array,nameKey) {
+    for (let i=0; i < array.length; i++) {
+        if (array[i].name === nameKey) {
+            return array[i];
+        }
+    }
+}
+
+export function getDefaultDerivedCharacteristics(characteristics=getDefaultCharacteristics()) {
     return new DerivedCharacteristic(characteristics);
 }
 
