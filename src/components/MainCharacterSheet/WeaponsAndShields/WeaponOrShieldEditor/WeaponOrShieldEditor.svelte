@@ -4,15 +4,21 @@
 
 <script>
     import WeaponOrShield from "../../../../model/WeaponOrShield";
+    import { createEventDispatcher } from 'svelte';
 
+    const dispatch = createEventDispatcher();
     export let weaponOrShield=new WeaponOrShield();
+
+    function handleSelected() {
+        dispatch('weapon_selected',weaponOrShield);
+    }
 </script>
 
 <tr>
-    <td><input bind:value={weaponOrShield.name} style="width:8em;"/></td>
-    <td><input bind:value={weaponOrShield.value}  style="width:2em; text-align: center"/></td>
-    <td><input bind:value={weaponOrShield.damage}  style="width:8em;"/></td>
-    <td><input bind:value={weaponOrShield.hands}  style="width:3em; text-align: center"/></td>
-    <td><input bind:value={weaponOrShield.hitPoints}  style="width:2em; text-align: center"/></td>
-    <td><input bind:value={weaponOrShield.range}  style="width:5em; text-align: center"/></td>
+    <td><input bind:value={weaponOrShield.name} style="width:8em;" on:focus={handleSelected}/></td>
+    <td><input bind:value={weaponOrShield.value}  style="width:2em; text-align: center" on:focus={handleSelected}/></td>
+    <td><input bind:value={weaponOrShield.damage}  style="width:8em;" on:focus={handleSelected}/></td>
+    <td><input bind:value={weaponOrShield.hands}  style="width:3em; text-align: center" on:focus={handleSelected}/></td>
+    <td><input bind:value={weaponOrShield.hitPoints}  style="width:2em; text-align: center" on:focus={handleSelected}/></td>
+    <td><input bind:value={weaponOrShield.range}  style="width:5em; text-align: center" on:focus={handleSelected}/></td>
 </tr>

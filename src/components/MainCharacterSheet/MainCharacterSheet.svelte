@@ -38,14 +38,14 @@ import DerivedCharacteristic, {getItemByName} from "../../model/DerivedCharacter
     <LogoBar />
     <div class="flex-row">
         <Identity bind:identity={worksheet.identity}/>
-        <Characteristics bind:characteristics={worksheet.characteristics} on:characteristic_changed={characteristicChanged}/>
+        <Characteristics bind:characteristics={worksheet.characteristics} on:characteristic_changed={characteristicChanged} on:characteristic_selected/>
         <DerivedCharacteristics bind:derivedCharacteristics={worksheet.derivedCharacteristics}/>
     </div>
-    <Skills bind:skills={worksheet.skills} on:skill_changed={skillChanged}/>
+    <Skills bind:skills={worksheet.skills} on:skill_changed={skillChanged} on:skill_selected/>
     <div class="flex-row">
         <Equipment bind:equipment={worksheet.equipment}/>
         <div class="flex-column">
-            <WeaponsAndShields bind:weaponsAndShields={worksheet.weaponsAndShields}/>
+            <WeaponsAndShields bind:weaponsAndShields={worksheet.weaponsAndShields} on:weapon_selected/>
             <Armor bind:armor={worksheet.armor}/>
         </div>
     </div>

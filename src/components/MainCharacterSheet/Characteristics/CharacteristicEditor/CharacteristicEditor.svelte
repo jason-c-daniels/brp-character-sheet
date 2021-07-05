@@ -14,15 +14,17 @@
         characteristic.roll = characteristic.value*5;
         dispatch('characteristic_changed',characteristic.name);
     }
-
+    function handleSelected() {
+        dispatch('characteristic_selected',characteristic);
+    }
 </script>
 
 <div class="characteristic-editor">
     <span class="name">{characteristic.name}</span>
-    <input type="number" min="1" max="20" bind:value="{characteristic.value}" on:change={handleChanged}/>
+    <input type="number" min="1" max="20" bind:value="{characteristic.value}" on:change={handleChanged} on:focus={handleSelected}/>
     {#if (characteristic.rollName)}
     <span class="roll-name">{characteristic.rollName}</span>
-    <input type="number" min="1" max="20" bind:value="{characteristic.roll}" />
+    <input type="number" min="1" max="20" bind:value="{characteristic.roll}" on:focus={handleSelected}/>
     {/if}
 
 </div>

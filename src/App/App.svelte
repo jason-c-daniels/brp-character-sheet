@@ -61,6 +61,9 @@
 
     let worksheet = isValid ? tempWorksheet : getNewWorksheet();
 
+    let selectedAbilityValue=0;
+    let diceExpression="1D3+db";
+
     scheduleAutosave();
 
     function doInitialWorksheetLoad() {
@@ -244,8 +247,24 @@
         {:else}
             <div id="content" style="padding:0">
                 {#if activeIndex === 0}
-                    <DiceRollerPanel bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}/>
-                    <Worksheet bind:worksheet={worksheet}/>
+                    <DiceRollerPanel
+                            bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
+                            bind:abilityValue={selectedAbilityValue}
+                            bind:diceExpression={diceExpression}
+                    />
+                    <Worksheet bind:worksheet={worksheet}
+                               on:skill_selected={(e)=>{
+                                    console.log(JSON.stringify(e));
+                                    selectedAbilityValue =e.detail.value;
+                               }}
+                               on:weapon_selected={(e)=>{
+                                   selectedAbilityValue=e.detail.value;
+                                   diceExpression=e.detail.damage;
+                               }}
+                               on:characteristic_selected={(e)=>{
+                                   selectedAbilityValue=e.detail.roll;
+                               }}
+                    />
                     <div style="width: 10pt; height: 0.25in"></div>
                 {:else if activeIndex === 1}
                     <About />
