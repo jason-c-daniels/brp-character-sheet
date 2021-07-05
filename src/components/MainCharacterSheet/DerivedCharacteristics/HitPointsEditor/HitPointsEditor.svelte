@@ -11,11 +11,11 @@
 <div class="container">
     <span class="center-title">Hit Points</span>
     <div class="current">
-        <input type="number" min="1" max="{derivedCharacteristics.maxHitPoints}" bind:value="{derivedCharacteristics.hitPoints}"/>
+        <input type="number" min="0" max="{derivedCharacteristics.maxHitPoints}" bind:value="{derivedCharacteristics.hitPoints}"/>
         <span>Current</span>
     </div>
     <div>
-        <input type="number" min="1" max="100" bind:value="{derivedCharacteristics.maxHitPoints}"/>
+        <input type="number" min="0" max="100" bind:value="{derivedCharacteristics.maxHitPoints}"/>
         <span>Maximum</span>
     </div>
 </div>
