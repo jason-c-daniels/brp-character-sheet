@@ -15,9 +15,19 @@ import LogoBar from '../shared/LogoBar';
     import WeaponsAndShields from "./WeaponsAndShields";
     import Armor from "./Armor";
     import Equipment from "./Equipment";
-import DerivedCharacteristic from "../../model/DerivedCharacteristic";
+import DerivedCharacteristic, {getItemByName} from "../../model/DerivedCharacteristic";
 
     export let worksheet = getNewWorksheet();
+
+    function skillChanged(event) {
+        if (event.detail.name === "Brawl (25)") {
+            let weapon=getItemByName(worksheet.weaponsAndShields,"Brawl");
+            if (weapon) {
+                weapon.value=event.detail.value;
+                worksheet.weaponsAndShields=worksheet.weaponsAndShields; // force update
+            }
+        }
+    }
 
     function characteristicChanged(event) {
         worksheet.derivedCharacteristics = new DerivedCharacteristic(worksheet.characteristics);
@@ -31,7 +41,7 @@ import DerivedCharacteristic from "../../model/DerivedCharacteristic";
         <Characteristics bind:characteristics={worksheet.characteristics} on:characteristic_changed={characteristicChanged}/>
         <DerivedCharacteristics bind:derivedCharacteristics={worksheet.derivedCharacteristics}/>
     </div>
-    <Skills bind:skills={worksheet.skills}/>
+    <Skills bind:skills={worksheet.skills} on:skill_changed={skillChanged}/>
     <div class="flex-row">
         <Equipment bind:equipment={worksheet.equipment}/>
         <div class="flex-column">

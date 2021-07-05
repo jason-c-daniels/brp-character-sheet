@@ -2,7 +2,7 @@ export default class Armor {
     type;
     points;
     modifier;
-    constructor(type="", points=0, modifier="") {
+    constructor(type="", points="", modifier="") {
         this.type=type;
         this.points=points;
         this.modifier=modifier;

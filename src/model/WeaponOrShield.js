@@ -1,4 +1,6 @@
 import {getDefaultCharacteristics} from "./Characteristic";
+import {getDefaultSkills} from "./Skill";
+import {getItemByName} from "./DerivedCharacteristic";
 
 export default class WeaponOrShield {
     name;
@@ -9,7 +11,7 @@ export default class WeaponOrShield {
     range;
     constructor(
         name="",
-        value=0,
+        value="",
         damage="",
         hands="",
         hitPoints="",
@@ -24,9 +26,11 @@ export default class WeaponOrShield {
     }
 }
 
-export function getDefaultWeaponsAndShields() {
+export function getDefaultWeaponsAndShields(skills = getDefaultSkills()) {
+    let brawl = getItemByName(skills, "Brawl (25)");
+
     return [
-        new WeaponOrShield("Brawl",0,"1D3+",1,"---","---"),
+        new WeaponOrShield("Brawl",brawl ? brawl.value : 25,"1D3+DB",1,"---","---"),
         new WeaponOrShield(),
         new WeaponOrShield(),
         new WeaponOrShield(),

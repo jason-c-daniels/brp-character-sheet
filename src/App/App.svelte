@@ -20,18 +20,20 @@
     import {applicationName, fileExtension, sheetPrefix, sheetSuffix} from '../applicationSettings'
 
     import About from '../components/About/About.md';
-    import { onMount } from 'svelte';
+    import {onMount} from 'svelte';
     import {getDefaultCharacteristics} from "../model/Characteristic";
     import {getDefaultSkills} from "../model/Skill";
-    import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
+    import {getDefaultDerivedCharacteristics, getItemByName} from "../model/DerivedCharacteristic";
+    import DiceRollerPanel from "../components/DiceRollerPanel/DiceRollerPanel.svelte";
 
-    const MAKE_BLANK_INDEX=0;
-    const ROLL_CHARACTERISTICS_INDEX=1;
-    const SET_DEFAULTS_INDEX=2;
+    const MAKE_BLANK_INDEX = 0;
+    const ROLL_CHARACTERISTICS_INDEX = 1;
+    const SET_DEFAULTS_INDEX = 2;
+    const UPDATE_BRAWLING_INDEX = 3;
 
     let activeIndex;
 
-    let snackBarElement, tabBarElement, drawerElement,listElement;
+    let snackBarElement, tabBarElement, drawerElement, listElement;
 
     let disabled = "";
     let showLoadPane = false;
@@ -40,18 +42,18 @@
     let ls;
 
     let snackBarText = 'Replace this with a real message';
-    let app_name="",file_ext="", prefix="", suffix="";
+    let app_name = "", file_ext = "", prefix = "", suffix = "";
     const unsubscribe_name = applicationName.subscribe(value => {
         app_name = value;
     });
-    const unsubscribe_ext= fileExtension.subscribe(value => {
+    const unsubscribe_ext = fileExtension.subscribe(value => {
         file_ext = value;
     });
-    const unsubscribe_prefix= sheetPrefix.subscribe(value => {
+    const unsubscribe_prefix = sheetPrefix.subscribe(value => {
         prefix = value;
-        ls=new LocalStorageRepository(prefix);
+        ls = new LocalStorageRepository(prefix);
     });
-    const unsubscribe_suffix= sheetSuffix.subscribe(value => {
+    const unsubscribe_suffix = sheetSuffix.subscribe(value => {
         suffix = value;
     });
 
@@ -66,9 +68,9 @@
         let isValid = false;
         try {
 
-            tempWorksheet = ls.load(suffix,getNewWorksheet);
+            tempWorksheet = ls.load(suffix, getNewWorksheet);
             isValid = validateWorksheet(tempWorksheet);
-        } catch (err){
+        } catch (err) {
             console.log(err);
             isValid = false;
         }
@@ -77,7 +79,7 @@
 
     function handleSaveWorksheetClicked() {
         let blob = new Blob([JSON.stringify(worksheet, null, 2)], {type: 'text/plain;charset=utf-8'});
-        ls.save(suffix,worksheet);
+        ls.save(suffix, worksheet);
         showSnackBar('MainCharacterSheet saved to local storage.');
         if (saveAlsoDownloads) {
             setTimeout(() => {
@@ -140,36 +142,51 @@
             return;
         }
         firstCall = false;
-        setInterval(() => ls.save(suffix,worksheet), 5 * 1000);
+        setInterval(() => ls.save(suffix, worksheet), 5 * 1000);
     }
 
     function showSnackBar(text) {
         snackBarText = text;
         snackBarElement.show();
     }
-    disabled='false';
-    setTimeout( ()=>{
-        disabled='';
-    }, 10);
 
     function toggleDrawer() {
-        drawerElement.open=!drawerElement.open;
+        drawerElement.open = !drawerElement.open;
     }
 
-    function handleAction(event){
-        var x=listElement.index;
+    function updateBrawling() {
+        let skill = getItemByName(worksheet.skills, "Brawl (25)");
+        if (!skill) return;
+        let weapon = getItemByName(worksheet.weaponsAndShields, "Brawl");
+        if (!weapon) return;
+        weapon.value = skill.value;
+        worksheet.weaponsAndShields = worksheet.weaponsAndShields;
+    }
+
+    function resetSkills() {
+        worksheet.skills = getDefaultSkills(worksheet.characteristics);
+        updateBrawling();
+    }
+
+    function handleAction(event) {
+        var x = listElement.index;
         if (x === MAKE_BLANK_INDEX) {
             worksheet = getBlankWorksheet();
-        }
-        else if (x === ROLL_CHARACTERISTICS_INDEX) {
-            worksheet.characteristics=getDefaultCharacteristics();
-            worksheet.derivedCharacteristics=getDefaultDerivedCharacteristics(worksheet.characteristics);
-            worksheet.skills=getDefaultSkills(worksheet.characteristics);
-        }
-        else if (x === SET_DEFAULTS_INDEX) {
-            worksheet.skills=getDefaultSkills(worksheet.characteristics);
+        } else if (x === ROLL_CHARACTERISTICS_INDEX) {
+            worksheet.characteristics = getDefaultCharacteristics();
+            worksheet.derivedCharacteristics = getDefaultDerivedCharacteristics(worksheet.characteristics);
+            resetSkills();
+        } else if (x === SET_DEFAULTS_INDEX) {
+            resetSkills();
+        } else if (x === UPDATE_BRAWLING_INDEX) {
+            updateBrawling();
         }
     }
+
+    disabled = 'enabled';// HACK: work around a bug that keeps disabling icon buttons even though they're not supposed to be
+    setTimeout(() => {
+        disabled = ''; // HACK: work around a bug that keeps disabling icon buttons even though they're not supposed to be
+    }, 10);
 
 </script>
 <style>
@@ -196,28 +213,29 @@
                 <mwc-list-item>Make blank</mwc-list-item>
                 <mwc-list-item>Roll characteristics</mwc-list-item>
                 <mwc-list-item>Set skill defaults</mwc-list-item>
+                <mwc-list-item>Update brawling</mwc-list-item>
             </mwc-list>
         </div>
         <div slot="appContent">
             <mwc-top-app-bar-fixed on:MDCTopAppBar:nav={toggleDrawer}>
                 <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
-        <div slot="title"><span>{app_name}</span></div>
-        <mwc-tab-bar slot="actionItems" style="display: inline-block" bind:this={tabBarElement}
+                <div slot="title"><span>{app_name}</span></div>
+                <mwc-tab-bar slot="actionItems" style="display: inline-block" bind:this={tabBarElement}
                      activeIndex={activeIndex} on:MDCTabBar:activated={handleTabActivated}>
-            <mwc-tab label="Character Sheet"></mwc-tab>
-            <mwc-tab label="About"></mwc-tab>
-        </mwc-tab-bar>
-        <mwc-icon-button icon="note_add" slot="actionItems" on:click={handleNewWorksheetClicked}
+                    <mwc-tab label="Character Sheet"></mwc-tab>
+                    <mwc-tab label="About"></mwc-tab>
+                </mwc-tab-bar>
+                <mwc-icon-button icon="note_add" slot="actionItems" on:click={handleNewWorksheetClicked}
                          disabled={disabled}></mwc-icon-button>
-        {#if showLoadPane}
-            <mwc-icon-button icon="cancel" slot="actionItems" on:click={hideLoadPane}></mwc-icon-button>
-        {:else}
-            <mwc-icon-button icon="folder_open" slot="actionItems"
-                             on:click={handleLoadWorksheetClicked}></mwc-icon-button>
-        {/if}
-        <mwc-icon-button icon="save" slot="actionItems" on:click={handleSaveWorksheetClicked}
-                         {disabled}></mwc-icon-button>
-        <mwc-icon-button icon="print" slot="actionItems" on:click={handlePrintClicked} {disabled}></mwc-icon-button>
+                {#if showLoadPane}
+                    <mwc-icon-button icon="cancel" slot="actionItems" on:click={hideLoadPane}></mwc-icon-button>
+                {:else}
+                    <mwc-icon-button icon="folder_open" slot="actionItems"
+                                     on:click={handleLoadWorksheetClicked}></mwc-icon-button>
+                {/if}
+                <mwc-icon-button icon="save" slot="actionItems" on:click={handleSaveWorksheetClicked}
+                                 {disabled}></mwc-icon-button>
+                <mwc-icon-button icon="print" slot="actionItems" on:click={handlePrintClicked} {disabled}></mwc-icon-button>
         {#if (showLoadPane)}
             <div id="content" class="file-loader" style="height: 100%">
                 <Dropzone on:drop={handleFilesSelect}
@@ -226,6 +244,7 @@
         {:else}
             <div id="content" style="padding:0">
                 {#if activeIndex === 0}
+                    <DiceRollerPanel bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}/>
                     <Worksheet bind:worksheet={worksheet}/>
                     <div style="width: 10pt; height: 0.25in"></div>
                 {:else if activeIndex === 1}

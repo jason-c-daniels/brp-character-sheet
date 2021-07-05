@@ -1,0 +1,8 @@
+.roller {
+    position:fixed;
+    top:63px;
+    right:0;
+    padding:5px;
+    width:265px;
+    border:#7f7f7f 1pt solid;
+}
