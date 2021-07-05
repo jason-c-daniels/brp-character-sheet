@@ -14,7 +14,12 @@
     export let abilityValue=0;
     export let diceExpression="1d3";
     export let damageBonus="None";
+    export let diceExpressionName="";
+    export let abilityRollName="";
     let rollResult="";
+
+    if (!abilityRollName || abilityRollName == "") {abilityRollName="Ability Value";}
+    if (!diceExpressionName || diceExpressionName == "") {diceExpressionName="Dice Expression";}
 
     function handleAbilityRoll() {
         if (abilityValue) {
@@ -47,19 +52,19 @@
         expr = expr.replace("+-","-");
         expr = expr.replace("++","+");
         let result=diceRoller.roll(expr);
-        rollResult=result.toString();
-        rollResult+="=>" + Math.round(result.total);
+        //rollResult=result.toString();
+        rollResult = Math.round(result.total).toString();
     }
 
 </script>
 
 <div class="roller">
     <div>
-        <TextField type="number" label="Ability Value" min="0" max="999" enabled="true" style="width:100%" bind:value={abilityValue}/>
+        <TextField type="number" label="{abilityRollName}" min="0" max="999" enabled="true" style="width:100%" bind:value={abilityValue}/>
         <mwc-button outlined icon="casino" on:click={handleAbilityRoll}>Roll</mwc-button>
     </div>
     <div>
-        <TextField type="text" label="Dice Expression" style="width:100%" bind:value={diceExpression}/>
+        <TextField type="text" label="{diceExpressionName}" style="width:100%" bind:value={diceExpression}/>
         <mwc-button outlined icon="casino" on:click={handleDiceExpressionRoll}>Roll</mwc-button>
     </div>
     <div style="">

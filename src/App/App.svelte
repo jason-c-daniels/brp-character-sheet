@@ -63,6 +63,8 @@
 
     let selectedAbilityValue=0;
     let diceExpression="1D3+db";
+    let diceExpressionName="";
+    let abilityRollName="";
 
     scheduleAutosave();
 
@@ -251,18 +253,27 @@
                             bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
                             bind:abilityValue={selectedAbilityValue}
                             bind:diceExpression={diceExpression}
+                            bind:abilityRollName={abilityRollName}
+                            bind:diceExpressionName={diceExpressionName}
                     />
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{
-                                    console.log(JSON.stringify(e));
                                     selectedAbilityValue =e.detail.value;
+                                    abilityRollName=e.detail.name;
+                                    diceExpressionName="Dice Expression";
                                }}
                                on:weapon_selected={(e)=>{
                                    selectedAbilityValue=e.detail.value;
                                    diceExpression=e.detail.damage;
+                                   abilityRollName=e.detail.name;
+                                   diceExpressionName="Damage";
                                }}
                                on:characteristic_selected={(e)=>{
-                                   selectedAbilityValue=e.detail.roll;
+                                   if (e.detail.rollName) {
+                                       selectedAbilityValue=e.detail.roll;
+                                       abilityRollName=e.detail.rollName;
+                                       diceExpressionName="Dice Expression";
+                                   }
                                }}
                     />
                     <div style="width: 10pt; height: 0.25in"></div>
