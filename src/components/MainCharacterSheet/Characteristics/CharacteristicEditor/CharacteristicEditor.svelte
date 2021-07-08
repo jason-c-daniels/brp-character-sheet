@@ -31,7 +31,6 @@
     <input id="char__{characteristic.name}" type="number" min="1" max="20" bind:value="{characteristic.value}" on:change={handleChanged} on:focus={handleSelected} on:blur={handleBlur}/>
     {#if (characteristic.rollName)}
     <label class="roll-name" for="roll__{characteristic.name}">{characteristic.rollName}</label>
-    <input id="roll__{characteristic.name}" type="number" min="1" max="20" bind:value="{characteristic.roll}" on:focus={handleSelected} on:blur={handleBlur}/>
+    <input id="roll__{characteristic.name}" type="number" min="1" max="999" bind:value="{characteristic.roll}" on:focus={handleSelected} on:blur={handleBlur}/>
     {/if}
-
 </div>

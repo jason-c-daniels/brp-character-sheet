@@ -165,7 +165,7 @@
         let weapon = getItemByName(worksheet.weaponsAndShields, "Brawl");
         if (!weapon) return;
         weapon.value = skill.value;
-        worksheet.weaponsAndShields = worksheet.weaponsAndShields;
+        worksheet.weaponsAndShields = worksheet.weaponsAndShields; //HACK: Force an update.
     }
 
     function resetSkills() {
