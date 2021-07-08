@@ -11,14 +11,21 @@
 
     function handleSelected() {
         dispatch('weapon_selected',weaponOrShield);
+        selected=true;
     }
+
+    function handleBlur() {
+        selected=false;
+    }
+
+    let selected=false;
 </script>
 
-<tr>
-    <td><input bind:value={weaponOrShield.name} style="width:8em;" on:focus={handleSelected}/></td>
-    <td><input bind:value={weaponOrShield.value}  style="width:2em; text-align: center" on:focus={handleSelected}/></td>
-    <td><input bind:value={weaponOrShield.damage}  style="width:8em;" on:focus={handleSelected}/></td>
-    <td><input bind:value={weaponOrShield.hands}  style="width:3em; text-align: center" on:focus={handleSelected}/></td>
-    <td><input bind:value={weaponOrShield.hitPoints}  style="width:2em; text-align: center" on:focus={handleSelected}/></td>
-    <td><input bind:value={weaponOrShield.range}  style="width:5em; text-align: center" on:focus={handleSelected}/></td>
+<tr class="{ selected ? 'selected' : ''}">
+    <td><input bind:value={weaponOrShield.name} style="width:8em;" on:focus={handleSelected}  on:blur={handleBlur}/></td>
+    <td><input bind:value={weaponOrShield.value}  style="width:2em; text-align: center" on:focus={handleSelected} on:blur={handleBlur}/></td>
+    <td><input bind:value={weaponOrShield.damage}  style="width:8em;" on:focus={handleSelected} on:blur={handleBlur}/></td>
+    <td><input bind:value={weaponOrShield.hands}  style="width:3em; text-align: center" on:focus={handleSelected} on:blur={handleBlur}/></td>
+    <td><input bind:value={weaponOrShield.hitPoints}  style="width:2em; text-align: center" on:focus={handleSelected} on:blur={handleBlur}/></td>
+    <td><input bind:value={weaponOrShield.range}  style="width:5em; text-align: center" on:focus={handleSelected} on:blur={handleBlur}/></td>
 </tr>

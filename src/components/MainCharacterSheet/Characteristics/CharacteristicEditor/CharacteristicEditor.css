@@ -16,7 +16,6 @@ input[type="text"] {
     letter-spacing: -0.01rem
 }
 
-
 .name,
 .roll-name {
     display: inline-block;
@@ -30,4 +29,9 @@ input[type="text"] {
 .roll-name {
     width:4.3rem;
     padding-left: 0.5rem;
+}
+
+.selected input,
+.selected {
+    background-color: #DFEFFF;
 }

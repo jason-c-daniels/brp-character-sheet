@@ -19,7 +19,6 @@
     let rollResult="";
 
     if (!abilityRollName || abilityRollName == "") {abilityRollName="Ability Value";}
-    if (!diceExpressionName || diceExpressionName == "") {diceExpressionName="Dice Expression";}
 
     function handleAbilityRoll() {
         if (abilityValue) {
@@ -63,10 +62,12 @@
         <TextField type="number" label="{abilityRollName}" min="0" max="999" enabled="true" style="width:100%" bind:value={abilityValue}/>
         <mwc-button outlined icon="casino" on:click={handleAbilityRoll}>Roll</mwc-button>
     </div>
-    <div>
-        <TextField type="text" label="{diceExpressionName}" style="width:100%" bind:value={diceExpression}/>
-        <mwc-button outlined icon="casino" on:click={handleDiceExpressionRoll}>Roll</mwc-button>
-    </div>
+    {#if (diceExpressionName) }
+        <div>
+            <TextField type="text" label="{diceExpressionName}" style="width:100%" bind:value={diceExpression}/>
+            <mwc-button outlined icon="casino" on:click={handleDiceExpressionRoll}>Roll</mwc-button>
+        </div>
+    {/if}
     <div style="">
         <div style="margin-top:15px; margin-bottom:15px;">
             <span>{rollResult}</span>

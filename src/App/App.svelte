@@ -260,19 +260,21 @@
                                on:skill_selected={(e)=>{
                                     selectedAbilityValue =e.detail.value;
                                     abilityRollName=e.detail.name;
-                                    diceExpressionName="Dice Expression";
+                                    diceExpressionName="";
                                }}
                                on:weapon_selected={(e)=>{
-                                   selectedAbilityValue=e.detail.value;
-                                   diceExpression=e.detail.damage;
-                                   abilityRollName=e.detail.name;
-                                   diceExpressionName="Damage";
+                                   if (e.detail.value) {
+                                       selectedAbilityValue=e.detail.value;
+                                       diceExpression=e.detail.damage;
+                                       abilityRollName=e.detail.name;
+                                       diceExpressionName="Damage";
+                                   }
                                }}
                                on:characteristic_selected={(e)=>{
                                    if (e.detail.rollName) {
                                        selectedAbilityValue=e.detail.roll;
                                        abilityRollName=e.detail.rollName;
-                                       diceExpressionName="Dice Expression";
+                                       diceExpressionName="";
                                    }
                                }}
                     />

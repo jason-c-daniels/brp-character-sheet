@@ -14,13 +14,19 @@
 
     function handleSelected() {
         dispatch('skill_selected',skill);
+        selected=true;
     }
 
+    function handleBlur() {
+        selected=false;
+    }
+
+    let selected=false;
 </script>
 
-<div class="skill-editor">
-    <input type="text" bind:value={skill.name} on:focus={handleSelected}/>
-    <input type="number" min="0" max="999" bind:value="{skill.value}" on:change={handleChanged} on:focus={handleSelected}/>
+<div class="skill-editor { selected ? 'selected' : ''}">
+    <input type="text" bind:value={skill.name} on:focus={handleSelected} on:blur={handleBlur}/>
+    <input type="number" min="0" max="999" bind:value="{skill.value}" on:change={handleChanged} on:focus={handleSelected} on:blur={handleBlur}/>
     <div class="center"><p style="display: inline-block">%</p></div>
-    <input type="checkbox" bind:checked={skill.used}/>
+    <input type="checkbox" bind:checked={skill.used} on:focus={handleSelected} on:blur={handleBlur}/>
 </div>

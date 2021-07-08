@@ -5,3 +5,15 @@ input  {
     margin:0;
     padding-left:0.2rem;
 }
+
+.selected td,
+.selected input,
+.selected {
+    background-color: #DFEFFF;
+}
+
+tr,
+td {
+ margin:0;
+ padding:0 2px;
+}

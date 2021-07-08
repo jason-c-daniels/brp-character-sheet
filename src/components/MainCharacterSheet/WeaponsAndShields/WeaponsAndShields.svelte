@@ -12,7 +12,7 @@
 
 <Section title="Weapons &amp; Shields">
     <div style="margin-left: 0.7rem;">
-        <table>
+        <table style="border:none; border-collapse: collapse">
             <thead>
                 <td>Weapon</td>
                 <td style="text-align: center">%</td>
