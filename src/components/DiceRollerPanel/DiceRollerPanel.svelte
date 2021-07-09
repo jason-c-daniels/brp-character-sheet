@@ -8,6 +8,8 @@
     import '@material/mwc-icon';
     import DiceRoller from 'rpg-dice-roller';
     import TextField from "../shared/TextField";
+    import {getDefaultSkills} from "../../model/Skill";
+    import {getItemByName} from "../shared/util/utilities";
     let abilityRollResult="";
     let diceRollResult="";
     let diceRoller = new DiceRoller.DiceRoller();
@@ -16,28 +18,40 @@
     export let damageBonus="None";
     export let diceExpressionName="";
     export let abilityRollName="";
-    let rollResult="";
+    export let skills = getDefaultSkills();
+    const NO_RESULT={success:false,difficult:false,special:false,fumble:false, failed:false};
+    let rollResult= {...NO_RESULT};
+    let rollValue="";
+    let martialArtsResult = {...NO_RESULT};
+    let isBrawling=false;
+    if (!abilityRollName || abilityRollName === "") {abilityRollName="Ability Value";}
 
-    if (!abilityRollName || abilityRollName == "") {abilityRollName="Ability Value";}
+    function evaluateRoll(value, roll) {
+        let av = value <= 5 ? 5 : value; // treat 01-05 ability values as 05
+        let special = Math.max(1, Math.round(av * 0.2));
+        let fumble = Math.min(100, 96 + Math.trunc((av + 9) / 20));
+        return {
+            success:roll <= av,
+            difficult:roll <= Math.round(av / 2.0),
+            special:roll <= special,
+            fumble:roll >= fumble,
+            failed:roll > av
+        };
+    }
 
     function handleAbilityRoll() {
         if (abilityValue) {
-            let av = abilityValue <= 5 ? 5 : abilityValue; // treat 01-05 ability values as 05
-            let special = Math.max(1, Math.round(av * 0.2));
-            let fumble = Math.min(100, 96 + Math.trunc((av + 9) / 20));
+
             let roll = diceRoller.roll("d%").total;
-            rollResult = roll.toString()+" : ";
-            if (roll <= special) {
-                rollResult += "Special!";
-            }
-            else if (roll <= av) {
-                rollResult += "Success";
-            }
-            else if (roll >= fumble) {
-                rollResult += "FUMBLE!";
-            }
-            else {
-                rollResult += "Failure";
+            rollValue = roll.toString();
+            rollResult = evaluateRoll(abilityValue,roll);
+            martialArtsResult={...NO_RESULT};
+            if (abilityRollName.startsWith("Brawl")) {
+                // check if also a martial arts skill success.
+                let martialArts=getItemByName(skills,"Martial Arts (01)");
+                if (martialArts) {
+                    martialArtsResult = evaluateRoll(martialArts.value, roll);
+                }
             }
         }
     }
@@ -55,6 +69,15 @@
         rollResult = Math.round(result.total).toString();
     }
 
+    function formatResult(result){
+        let resultString="";
+        if (result.special) resultString="+++ Special Success!";
+        else if (result.difficult) resultString="++ Difficult Success";
+        else if (result.success) resultString = "+ Success";
+        else if (result.fumble) resultString = "-- FUMBLE!";
+        else if (result.failed) resultString="- Failed";
+        return resultString;
+    }
 </script>
 
 <div class="roller">
@@ -69,11 +92,15 @@
         </div>
     {/if}
     <div style="">
-        <div style="margin-top:15px; margin-bottom:15px;">
-            <span>{rollResult}</span>
-        </div>
-        {#if (rollResult)}
-        <mwc-button outlined icon="cancel" on:click={()=>{rollResult="";}}>Clear</mwc-button>
+        {#if (rollValue !=="")}
+            <div style="margin-top:15px; margin-bottom:15px;">
+               <span>{rollValue}: {formatResult(rollResult)}</span>
+            </div>
+
+            {#if (abilityRollName.startsWith("Brawl"))}
+                <span>Martial Arts: {formatResult(martialArtsResult)}</span>
+            {/if}
+            <mwc-button outlined icon="cancel" on:click={()=>{rollValue=""}}>Clear</mwc-button>
         {/if}
     </div>
 </div>

@@ -23,8 +23,9 @@
     import {onMount} from 'svelte';
     import {getDefaultCharacteristics} from "../model/Characteristic";
     import {getDefaultSkills} from "../model/Skill";
-    import {getDefaultDerivedCharacteristics, getItemByName} from "../model/DerivedCharacteristic";
+    import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
     import DiceRollerPanel from "../components/DiceRollerPanel/DiceRollerPanel.svelte";
+    import {getItemByName} from "../components/shared/util/utilities";
 
     const MAKE_BLANK_INDEX = 0;
     const ROLL_CHARACTERISTICS_INDEX = 1;
@@ -255,6 +256,7 @@
                             bind:diceExpression={diceExpression}
                             bind:abilityRollName={abilityRollName}
                             bind:diceExpressionName={diceExpressionName}
+                            bind:skills={worksheet.skills}
                     />
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{

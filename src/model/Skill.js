@@ -1,5 +1,5 @@
 import {getDefaultCharacteristics} from "./Characteristic";
-import {getItemByName} from "./DerivedCharacteristic";
+import {getItemByName} from "../components/shared/util/utilities";
 
 export default class Skill {
     name;

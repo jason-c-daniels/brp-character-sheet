@@ -1,4 +1,5 @@
-import  {getDefaultCharacteristics} from "./Characteristic";
+import {getDefaultCharacteristics} from "./Characteristic";
+import {getItemByName} from "../components/shared/util/utilities";
 
 export default class DerivedCharacteristic {
     move;
@@ -29,14 +30,6 @@ export default class DerivedCharacteristic {
         else if (db <= 32) {this.damageBonus="+1D4";}
         else if (db <= 40) {this.damageBonus="+1D6";}
         else if (db <= 56) {this.damageBonus="+2D6";}
-    }
-}
-
-export function getItemByName(array,nameKey) {
-    for (let i=0; i < array.length; i++) {
-        if (array[i].name === nameKey) {
-            return array[i];
-        }
     }
 }
 

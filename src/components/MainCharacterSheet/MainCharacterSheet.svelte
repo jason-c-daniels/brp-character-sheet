@@ -15,7 +15,8 @@ import LogoBar from '../shared/LogoBar';
     import WeaponsAndShields from "./WeaponsAndShields";
     import Armor from "./Armor";
     import Equipment from "./Equipment";
-import DerivedCharacteristic, {getItemByName} from "../../model/DerivedCharacteristic";
+import DerivedCharacteristic from "../../model/DerivedCharacteristic";
+import {getItemByName} from "../shared/util/utilities";
 
     export let worksheet = getNewWorksheet();
 
