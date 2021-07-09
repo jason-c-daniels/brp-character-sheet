@@ -216,11 +216,19 @@
         <span slot="subtitle">Select the action to perform</span>
         <div style="padding: 2pt">
             <mwc-list on:action={handleAction} bind:this={listElement}>
-                <mwc-list-item>Make blank</mwc-list-item>
-                <mwc-list-item>Roll characteristics</mwc-list-item>
+                <mwc-list-item>Make sheet blank</mwc-list-item>
+                <mwc-list-item>Re-roll characteristics</mwc-list-item>
                 <mwc-list-item>Set skill defaults</mwc-list-item>
-                <mwc-list-item>Update brawling</mwc-list-item>
             </mwc-list>
+            <h4>Dice Roller</h4>
+            <DiceRollerPanel
+                    bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
+                    bind:abilityValue={selectedAbilityValue}
+                    bind:diceExpression={diceExpression}
+                    bind:abilityRollName={abilityRollName}
+                    bind:diceExpressionName={diceExpressionName}
+                    bind:skills={worksheet.skills}
+            />
         </div>
         <div slot="appContent">
             <mwc-top-app-bar-fixed on:MDCTopAppBar:nav={toggleDrawer}>
@@ -250,14 +258,7 @@
         {:else}
             <div id="content" style="padding:0">
                 {#if activeIndex === 0}
-                    <DiceRollerPanel
-                            bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
-                            bind:abilityValue={selectedAbilityValue}
-                            bind:diceExpression={diceExpression}
-                            bind:abilityRollName={abilityRollName}
-                            bind:diceExpressionName={diceExpressionName}
-                            bind:skills={worksheet.skills}
-                    />
+
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{
                                     selectedAbilityValue =e.detail.value;

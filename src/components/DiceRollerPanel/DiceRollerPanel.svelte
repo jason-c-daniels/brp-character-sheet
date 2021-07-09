@@ -10,20 +10,22 @@
     import TextField from "../shared/TextField";
     import {getDefaultSkills} from "../../model/Skill";
     import {getItemByName} from "../shared/util/utilities";
-    let abilityRollResult="";
-    let diceRollResult="";
-    let diceRoller = new DiceRoller.DiceRoller();
+
     export let abilityValue=0;
-    export let diceExpression="1d3";
+    export let diceExpression="1D3+DB";
     export let damageBonus="None";
     export let diceExpressionName="";
     export let abilityRollName="";
     export let skills = getDefaultSkills();
     const NO_RESULT={success:false,difficult:false,special:false,fumble:false, failed:false};
+    let abilityRollResult="";
+    let diceRollResult="";
+    let diceRoller = new DiceRoller.DiceRoller();
     let rollResult= {...NO_RESULT};
     let rollValue="";
     let martialArtsResult = {...NO_RESULT};
     let isBrawling=false;
+    let isDiceExpression=false;
     if (!abilityRollName || abilityRollName === "") {abilityRollName="Ability Value";}
 
     function evaluateRoll(value, roll) {
@@ -40,13 +42,14 @@
     }
 
     function handleAbilityRoll() {
+        isDiceExpression=false;
         if (abilityValue) {
-
             let roll = diceRoller.roll("d%").total;
             rollValue = roll.toString();
             rollResult = evaluateRoll(abilityValue,roll);
             martialArtsResult={...NO_RESULT};
-            if (abilityRollName.startsWith("Brawl")) {
+            isBrawling=abilityRollName.startsWith("Brawl");
+            if (isBrawling) {
                 // check if also a martial arts skill success.
                 let martialArts=getItemByName(skills,"Martial Arts (01)");
                 if (martialArts) {
@@ -57,6 +60,8 @@
     }
 
     function handleDiceExpressionRoll() {
+        isBrawling=false;
+        isDiceExpression=true;
         let expr=diceExpression.toLowerCase();
         expr = expr.replace("1⁄2db","db/2");
         expr = expr.replace("1/2db","db/2");
@@ -66,7 +71,7 @@
         expr = expr.replace("++","+");
         let result=diceRoller.roll(expr);
         //rollResult=result.toString();
-        rollResult = Math.round(result.total).toString();
+        rollValue = Math.round(result.total).toString();
     }
 
     function formatResult(result){
@@ -94,10 +99,14 @@
     <div style="">
         {#if (rollValue !=="")}
             <div style="margin-top:15px; margin-bottom:15px;">
-               <span>{rollValue}: {formatResult(rollResult)}</span>
+               <span>{rollValue}
+                   {#if (!isDiceExpression)}
+                    : {formatResult(rollResult)}
+                   {/if}
+               </span>
             </div>
 
-            {#if (abilityRollName.startsWith("Brawl"))}
+            {#if (isBrawling)}
                 <span>Martial Arts: {formatResult(martialArtsResult)}</span>
             {/if}
             <mwc-button outlined icon="cancel" on:click={()=>{rollValue=""}}>Clear</mwc-button>
