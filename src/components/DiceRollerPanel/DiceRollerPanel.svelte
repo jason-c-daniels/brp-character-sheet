@@ -108,7 +108,7 @@
 
             {#if (isBrawling)}
             <div style="display: inline-block">
-                <span style="display: inline-block">Martial Arts: {formatResult(martialArtsResult)}</span>
+                <span style="display: inline-block">; Martial Arts: {formatResult(martialArtsResult)}</span>
             </div>
             {/if}
              <mwc-button style="vertical-align:middle" outlined icon="cancel" on:click={()=>{rollValue=""}}>Clear</mwc-button>
