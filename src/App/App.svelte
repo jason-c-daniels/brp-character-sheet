@@ -210,27 +210,18 @@
 
 <GlobalCss/>
 
-<main class="noprint">
-    <mwc-drawer hasHeader type="modal" bind:this={drawerElement}>
+<main class="noprint" >
+    <mwc-drawer hasHeader type="modal" bind:this={drawerElement} >
         <span slot="title">Actions</span>
         <span slot="subtitle">Select the action to perform</span>
-        <div style="padding: 2pt">
+        <div style="padding: 2pt;height:100%">
             <mwc-list on:action={handleAction} bind:this={listElement}>
                 <mwc-list-item>Make sheet blank</mwc-list-item>
                 <mwc-list-item>Re-roll characteristics</mwc-list-item>
                 <mwc-list-item>Set skill defaults</mwc-list-item>
             </mwc-list>
-            <h4>Dice Roller</h4>
-            <DiceRollerPanel
-                    bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
-                    bind:abilityValue={selectedAbilityValue}
-                    bind:diceExpression={diceExpression}
-                    bind:abilityRollName={abilityRollName}
-                    bind:diceExpressionName={diceExpressionName}
-                    bind:skills={worksheet.skills}
-            />
         </div>
-        <div slot="appContent">
+        <div id="appContent" slot="appContent" >
             <mwc-top-app-bar-fixed on:MDCTopAppBar:nav={toggleDrawer}>
                 <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
                 <div slot="title"><span>{app_name}</span></div>
@@ -251,14 +242,24 @@
                                  {disabled}></mwc-icon-button>
                 <mwc-icon-button icon="print" slot="actionItems" on:click={handlePrintClicked} {disabled}></mwc-icon-button>
         {#if (showLoadPane)}
-            <div id="content" class="file-loader" style="height: 100%">
+            <div id="content" class="file-loader" >
                 <Dropzone on:drop={handleFilesSelect}
                           containerStyles="height:92vh;color:#333333; background-color:#EFEFEF;"/>
             </div>
         {:else}
-            <div id="content" style="padding:0">
+            <div id="content" class="scrollbox" style="{activeIndex === 0 ? 'overflow:hidden;' : ''}">
                 {#if activeIndex === 0}
-
+                <div id="toolbar" >
+                    <DiceRollerPanel
+                            bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
+                            bind:abilityValue={selectedAbilityValue}
+                            bind:diceExpression={diceExpression}
+                            bind:abilityRollName={abilityRollName}
+                            bind:diceExpressionName={diceExpressionName}
+                            bind:skills={worksheet.skills}
+                    />
+                </div>
+                <div id="worksheet" class="scrollbox" >
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{
                                     selectedAbilityValue =e.detail.value;
@@ -281,13 +282,18 @@
                                    }
                                }}
                     />
-                    <div style="width: 10pt; height: 0.25in"></div>
+                        <div style="width: 10pt; height: 0.25in"></div>
+                    </div>
+
                 {:else if activeIndex === 1}
                     <About />
                 {:else}
                     <div class="page">
                         <h3>TBD/Coming Soon</h3>
                     </div>
+
+
+
                 {/if}
             </div>
         {/if}

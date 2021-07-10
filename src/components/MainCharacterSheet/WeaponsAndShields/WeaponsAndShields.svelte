@@ -1,5 +1,5 @@
 <style>
-    @import "WeaponOrShieldEditor.css";
+    @import "WeaponAndShields.css";
 </style>
 
 <script>

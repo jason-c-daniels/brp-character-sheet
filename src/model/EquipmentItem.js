@@ -23,7 +23,6 @@ export function getDefaultEquipment() {
         new EquipmentItem(),
         new EquipmentItem(),
         new EquipmentItem(),
-        new EquipmentItem(),
         new EquipmentItem()
     ];
 }

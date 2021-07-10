@@ -8,7 +8,7 @@
     export let armor=new Armor()
 </script>
 
-<Section title="Armor">
+<Section title="Armor" props={{style:"margin-top:0.35rem"}}>
     <table style="padding-left: 0.7rem">
         <thead>
             <td>Type</td>

@@ -71,7 +71,7 @@
         expr = expr.replace("++","+");
         let result=diceRoller.roll(expr);
         //rollResult=result.toString();
-        rollValue = Math.round(result.total).toString();
+        rollValue = diceExpressionName + " : " + Math.round(result.total).toString();
     }
 
     function formatResult(result){
@@ -86,19 +86,19 @@
 </script>
 
 <div class="roller">
-    <div>
-        <TextField type="number" label="{abilityRollName}" min="0" max="999" enabled="true" style="width:100%" bind:value={abilityValue}/>
-        <mwc-button outlined icon="casino" on:click={handleAbilityRoll}>Roll</mwc-button>
+    <div style="display: inline-block">
+        <TextField type="number" label="{abilityRollName}" min="0" max="999" enabled="true" style="width:12rem" bind:value={abilityValue}/>
+        <mwc-button style="margin-top: 1.5rem" outlined icon="casino" on:click={handleAbilityRoll}>Roll</mwc-button>
     </div>
     {#if (diceExpressionName) }
-        <div>
-            <TextField type="text" label="{diceExpressionName}" style="width:100%" bind:value={diceExpression}/>
-            <mwc-button outlined icon="casino" on:click={handleDiceExpressionRoll}>Roll</mwc-button>
+        <div style="display: inline-block">
+            <TextField type="text" label="{diceExpressionName}" style="width:12rem" bind:value={diceExpression}/>
+            <mwc-button style="margin-top: 1.5rem" outlined icon="casino" on:click={handleDiceExpressionRoll}>Roll</mwc-button>
         </div>
     {/if}
-    <div style="">
-        {#if (rollValue !=="")}
-            <div style="margin-top:15px; margin-bottom:15px;">
+    {#if (rollValue !="")}
+        <div id="result-pane" style="display: inline-block">
+            <div style="display: inline-block">
                <span>{rollValue}
                    {#if (!isDiceExpression)}
                     : {formatResult(rollResult)}
@@ -107,9 +107,11 @@
             </div>
 
             {#if (isBrawling)}
-                <span>Martial Arts: {formatResult(martialArtsResult)}</span>
+            <div style="display: inline-block">
+                <span style="display: inline-block">Martial Arts: {formatResult(martialArtsResult)}</span>
+            </div>
             {/if}
-            <mwc-button outlined icon="cancel" on:click={()=>{rollValue=""}}>Clear</mwc-button>
-        {/if}
-    </div>
+             <mwc-button style="vertical-align:middle" outlined icon="cancel" on:click={()=>{rollValue=""}}>Clear</mwc-button>
+        </div>
+    {/if}
 </div>
