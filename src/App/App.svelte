@@ -249,7 +249,10 @@
         {:else}
             <div id="content" class="scrollbox" style="{activeIndex === 0 ? 'overflow:hidden;' : ''}">
                 {#if activeIndex === 0}
-                <div id="toolbar" >
+                <div id="toolbar" class="flex-row">
+                    <div style="flex-shrink:3; flex-grow:1; background-color:white; display:inline-block">
+
+                    </div>
                     <DiceRollerPanel
                             bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
                             bind:abilityValue={selectedAbilityValue}

@@ -25,6 +25,7 @@
     let rollValue="";
     let martialArtsResult = {...NO_RESULT};
     let isBrawling=false;
+    let rollName = "";
     let isDiceExpression=false;
     if (!abilityRollName || abilityRollName === "") {abilityRollName="Ability Value";}
 
@@ -46,6 +47,7 @@
         if (abilityValue) {
             let roll = diceRoller.roll("d%").total;
             rollValue = roll.toString();
+            rollName=abilityRollName;
             rollResult = evaluateRoll(abilityValue,roll);
             martialArtsResult={...NO_RESULT};
             isBrawling=abilityRollName.startsWith("Brawl");
@@ -71,16 +73,16 @@
         expr = expr.replace("++","+");
         let result=diceRoller.roll(expr);
         //rollResult=result.toString();
-        rollValue = diceExpressionName + " : " + Math.round(result.total).toString();
+        rollValue =  " : " + Math.round(result.total).toString();
     }
 
-    function formatResult(result){
+    function formatResult(result) {
         let resultString="";
-        if (result.special) resultString="+++ Special Success!";
-        else if (result.difficult) resultString="++ Difficult Success";
-        else if (result.success) resultString = "+ Success";
-        else if (result.fumble) resultString = "-- FUMBLE!";
-        else if (result.failed) resultString="- Failed";
+        if (result.special) resultString="Special Success!";
+        else if (result.difficult) resultString="Difficult Success";
+        else if (result.success) resultString = "Success";
+        else if (result.fumble) resultString = "FUMBLE!";
+        else if (result.failed) resultString="Failed";
         return resultString;
     }
 </script>
@@ -99,7 +101,13 @@
     {#if (rollValue !="")}
         <div id="result-pane" style="display: inline-block">
             <div style="display: inline-block">
-               <span>{rollValue}
+               <span>{rollName} =>
+                   {#if (isDiceExpression)}
+                       {diceExpressionName}
+                   {:else}
+                       Rolled
+                   {/if}
+                   {rollValue}
                    {#if (!isDiceExpression)}
                     : {formatResult(rollResult)}
                    {/if}
