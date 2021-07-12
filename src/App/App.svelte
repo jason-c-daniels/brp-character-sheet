@@ -24,7 +24,6 @@
     import {getDefaultCharacteristics} from "../model/Characteristic";
     import {getDefaultSkills} from "../model/Skill";
     import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
-    import DiceRollerPanel from "../components/DiceRollerPanel/DiceRollerPanel.svelte";
     import {getItemByName} from "../util/utilities";
     import {handleAbilityRoll} from "../util/utilities";
     import {formatResult} from "../util/utilities";
