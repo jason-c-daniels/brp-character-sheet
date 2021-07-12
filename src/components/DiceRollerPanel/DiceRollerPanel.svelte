@@ -9,7 +9,7 @@
     import DiceRoller from 'rpg-dice-roller';
     import TextField from "../shared/TextField";
     import {getDefaultSkills} from "../../model/Skill";
-    import {getItemByName} from "../shared/util/utilities";
+    import {getItemByName} from "../../util/utilities";
 
     export let abilityValue=0;
     export let diceExpression="1D3+DB";

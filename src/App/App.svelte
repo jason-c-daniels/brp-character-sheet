@@ -25,7 +25,7 @@
     import {getDefaultSkills} from "../model/Skill";
     import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
     import DiceRollerPanel from "../components/DiceRollerPanel/DiceRollerPanel.svelte";
-    import {getItemByName} from "../components/shared/util/utilities";
+    import {getItemByName} from "../util/utilities";
 
     const MAKE_BLANK_INDEX = 0;
     const ROLL_CHARACTERISTICS_INDEX = 1;
@@ -247,22 +247,9 @@
                           containerStyles="height:92vh;color:#333333; background-color:#EFEFEF;"/>
             </div>
         {:else}
-            <div id="content" class="scrollbox" style="{activeIndex === 0 ? 'overflow:hidden;' : ''}">
+            <div id="content" class="scrollbox" style="{activeIndex === 0 ? '' : ''}">
                 {#if activeIndex === 0}
-                <div id="toolbar" class="flex-row">
-                    <div style="flex-shrink:3; flex-grow:1; background-color:white; display:inline-block">
-
-                    </div>
-                    <DiceRollerPanel
-                            bind:damageBonus={worksheet.derivedCharacteristics.damageBonus}
-                            bind:abilityValue={selectedAbilityValue}
-                            bind:diceExpression={diceExpression}
-                            bind:abilityRollName={abilityRollName}
-                            bind:diceExpressionName={diceExpressionName}
-                            bind:skills={worksheet.skills}
-                    />
-                </div>
-                <div id="worksheet" class="scrollbox" >
+                <div id="worksheet" >
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{
                                     selectedAbilityValue =e.detail.value;
@@ -284,6 +271,15 @@
                                        diceExpressionName="";
                                    }
                                }}
+                               on:roll_attack={(e)=>{
+                                   alert(JSON.stringify(e.detail));
+                               }}
+                               on:roll_characteristic={(e)=>{
+                                   alert(JSON.stringify(e.detail));
+                               }}
+                               on:roll_skill={(e)=>{
+                                   alert(JSON.stringify(e.detail));
+                               }}
                     />
                         <div style="width: 10pt; height: 0.25in"></div>
                     </div>
@@ -294,9 +290,6 @@
                     <div class="page">
                         <h3>TBD/Coming Soon</h3>
                     </div>
-
-
-
                 {/if}
             </div>
         {/if}

@@ -1,6 +1,6 @@
 import {getDefaultCharacteristics} from "./Characteristic";
 import {getDefaultSkills} from "./Skill";
-import {getItemByName} from "../components/shared/util/utilities";
+import {getItemByName} from "../util/utilities";
 
 export default class WeaponOrShield {
     name;

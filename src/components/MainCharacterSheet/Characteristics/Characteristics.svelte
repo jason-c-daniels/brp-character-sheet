@@ -13,7 +13,11 @@
 <Section title="Characteristics">
     <div style="margin-left: 0.7rem;width:12rem">
     {#each characteristics as characteristic}
-        <CharacteristicEditor bind:characteristic={characteristic} on:characteristic_changed on:characteristic_selected/>
+        <CharacteristicEditor bind:characteristic={characteristic}
+                              on:characteristic_changed
+                              on:characteristic_selected
+                              on:roll_characteristic
+        />
     {/each}
     </div>
 </Section>

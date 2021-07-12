@@ -1,5 +1,5 @@
 import {getDefaultCharacteristics} from "./Characteristic";
-import {getItemByName} from "../components/shared/util/utilities";
+import {getItemByName} from "../util/utilities";
 
 export default class Skill {
     name;
@@ -72,7 +72,7 @@ export function getDefaultSkills(characteristics=getDefaultCharacteristics()) {
         new Skill("Strategy (01)",1),
         new Skill("Swim (25)",25),
         new Skill("Teach (10)",10),
-        new Skill("Technical Skill (_________) (00)",0),
+        new Skill("Technical Skill (_______) (00)",0),
         new Skill("Throw (25)",25),
         new Skill("Track (10)",10)
     ];

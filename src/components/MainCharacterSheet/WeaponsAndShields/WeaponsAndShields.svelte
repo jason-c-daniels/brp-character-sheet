@@ -22,7 +22,7 @@
                 <td>Range</td>
             </thead>
         {#each weaponsAndShields as weaponOrShield}
-            <WeaponOrShieldEditor bind:weaponOrShield={weaponOrShield} on:weapon_selected/>
+            <WeaponOrShieldEditor bind:weaponOrShield={weaponOrShield} on:weapon_selected on:roll_attack/>
         {/each}
         </table>
     </div>

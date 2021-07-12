@@ -21,6 +21,10 @@
         selected=false;
     }
 
+    function rollSkill() {
+        dispatch('roll_skill',skill);
+    }
+
     let selected=false;
 </script>
 
@@ -29,4 +33,9 @@
     <input type="number" min="0" max="999" bind:value="{skill.value}" on:change={handleChanged} on:focus={handleSelected} on:blur={handleBlur}/>
     <div class="center"><p style="display: inline-block">%</p></div>
     <input type="checkbox" bind:checked={skill.used} on:focus={handleSelected} on:blur={handleBlur}/>
+    {#if (skill && skill.value && skill.name)}
+        <mwc-icon class="noprint" on:click={rollSkill}>casino</mwc-icon>
+    {:else}
+        <mwc-icon class="noprint disabled" >casino</mwc-icon>
+    {/if}
 </div>

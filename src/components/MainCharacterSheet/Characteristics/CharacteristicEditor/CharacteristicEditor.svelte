@@ -23,6 +23,10 @@
         selected=false;
     }
 
+    function rollCharacteristic() {
+        dispatch('roll_characteristic', characteristic);
+    }
+
     let selected=false;
 </script>
 
@@ -32,5 +36,6 @@
     {#if (characteristic.rollName)}
     <label class="roll-name" for="roll__{characteristic.name}">{characteristic.rollName}</label>
     <input id="roll__{characteristic.name}" type="number" min="1" max="999" bind:value="{characteristic.roll}" on:focus={handleSelected} on:blur={handleBlur}/>
+    <mwc-icon class="noprint" on:click={rollCharacteristic}>casino</mwc-icon>
     {/if}
 </div>

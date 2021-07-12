@@ -13,7 +13,7 @@
 <Section title="Skills" >
     <div class="container">
     {#each skills as skill}
-        <SkillEditor bind:skill={skill} on:skill_changed on:skill_selected/>
+        <SkillEditor bind:skill={skill} on:skill_changed on:skill_selected on:roll_skill/>
     {/each}
     </div>
 </Section>
