@@ -31,9 +31,5 @@ export function hide() {
     {#if (damage >= 0)}
         <h3>Damage: {damage} </h3>
     {/if}
-    <mwc-button
-            slot="primaryAction"
-            dialogAction="close">
-        Close
-    </mwc-button>
+
 </mwc-dialog>
