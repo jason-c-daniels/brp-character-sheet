@@ -26,6 +26,11 @@
     import {getDefaultDerivedCharacteristics} from "../model/DerivedCharacteristic";
     import DiceRollerPanel from "../components/DiceRollerPanel/DiceRollerPanel.svelte";
     import {getItemByName} from "../util/utilities";
+    import {handleAbilityRoll} from "../util/utilities";
+    import {formatResult} from "../util/utilities";
+    import {rollDamage} from "../util/utilities";
+    import {formatRollName} from "../util/utilities";
+    import RollResultDialog from "../components/RollResultDialog";
 
     const MAKE_BLANK_INDEX = 0;
     const ROLL_CHARACTERISTICS_INDEX = 1;
@@ -34,7 +39,7 @@
 
     let activeIndex;
 
-    let snackBarElement, tabBarElement, drawerElement, listElement;
+    let snackBarElement, tabBarElement, drawerElement, listElement, rollResultsDialogElement;
 
     let disabled = "";
     let showLoadPane = false;
@@ -62,10 +67,10 @@
 
     let worksheet = isValid ? tempWorksheet : getNewWorksheet();
 
-    let selectedAbilityValue=0;
-    let diceExpression="1D3+db";
-    let diceExpressionName="";
-    let abilityRollName="";
+    let selectedAbilityValue = 0;
+    let diceExpression = "1D3+db";
+    let diceExpressionName = "";
+    let abilityRollName = "";
 
     scheduleAutosave();
 
@@ -271,14 +276,27 @@
                                        diceExpressionName="";
                                    }
                                }}
-                               on:roll_attack={(e)=>{
-                                   alert(JSON.stringify(e.detail));
+                               on:roll_attack={
+
+                                   (e)=>{
+                                   let result=handleAbilityRoll(e.detail.name,e.detail.value,worksheet.skills);
+                                   let heading = formatRollName(e.detail.name,e.detail.value);
+                                   let damage = -1;
+                                   if (result.rollResult.success) {
+                                        damage=rollDamage(e.detail.damage,worksheet.derivedCharacteristics.damageBonus,result.martialArtsResult.success);
+                                   }
+                                   rollResultsDialogElement.show(heading, result.rollValue,formatResult(result.rollResult),damage);
                                }}
                                on:roll_characteristic={(e)=>{
-                                   alert(JSON.stringify(e.detail));
+                                   let result=handleAbilityRoll(e.detail.rollName,e.detail.roll,worksheet.skills);
+                                   let heading=formatRollName(e.detail.rollName,e.detail.roll);
+                                   rollResultsDialogElement.show(heading,result.rollValue,formatResult(result.rollResult));
                                }}
-                               on:roll_skill={(e)=>{
-                                   alert(JSON.stringify(e.detail));
+                               on:roll_skill={
+                                   (e)=>{
+                                   let result=handleAbilityRoll(e.detail.name,e.detail.value,worksheet.skills);
+                                   let heading = formatRollName(e.detail.name,e.detail.value);
+                                   rollResultsDialogElement.show(heading, result.rollValue,formatResult(result.rollResult));
                                }}
                     />
                         <div style="width: 10pt; height: 0.25in"></div>
@@ -293,6 +311,8 @@
                 {/if}
             </div>
         {/if}
+
+        <RollResultDialog bind:this={rollResultsDialogElement}/>
         <mwc-snackbar labelText="{snackBarText}" bind:this={snackBarElement}>
             <mwc-icon-button icon="close" slot="dismiss"></mwc-icon-button>
         </mwc-snackbar>

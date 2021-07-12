@@ -55,9 +55,28 @@ export function formatResult(result) {
     return resultString;
 }
 
-export function rollDamage(diceExpression,isDoubled) {
+export function rollDamage(diceExpression,damageBonus="none",isDoubled=false) {
     if (isDoubled) {
         diceExpression="2*"+diceExpression;
     }
-    return diceRoller.roll(diceExpression).total;
+
+    let expr=diceExpression.toLowerCase();
+    expr = expr.replace("1⁄2db","db/2");
+    expr = expr.replace("1/2db","db/2");
+    expr = expr.replace("db",damageBonus.toLowerCase());
+    expr = expr.replace("none","0");
+    expr = expr.replace("+-","-");
+    expr = expr.replace("++","+");
+    let result=diceRoller.roll(expr).total;
+    return result >=0 ? result : 0;
+}
+
+export function formatRollName(rollName,targetValue) {
+    // find last paren (if any)
+    let li=rollName.lastIndexOf("(");
+    // remove all text from last paren
+    if (li > 0) { // we should never have an input starting with a left paren, and if we do, it's user error so keep the name as is.
+        rollName = rollName.substr(0,li);
+    }
+    return rollName+' ('+targetValue.toString()+')';
 }
