@@ -1,3 +1,7 @@
 thead {
     font-weight: bold;
 }
+
+td.centered {
+    text-align: center;
+}

@@ -15,10 +15,10 @@
         <table style="border:none; border-collapse: collapse">
             <thead>
                 <td>Weapon</td>
-                <td style="text-align: center">%</td>
+                <td class="centered">%</td>
                 <td>Damage</td>
                 <td>Hands</td>
-                <td>HP</td>
+                <td class="centered">HP</td>
                 <td>Range</td>
             </thead>
         {#each weaponsAndShields as weaponOrShield}
