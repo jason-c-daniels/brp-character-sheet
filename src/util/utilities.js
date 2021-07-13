@@ -67,7 +67,7 @@ export function rollDamage(diceExpression,damageBonus="none",isDoubled=false) {
     expr = expr.replace("none","0");
     expr = expr.replace("+-","-");
     expr = expr.replace("++","+");
-    let result=diceRoller.roll(expr).total;
+    let result=Math.round(diceRoller.roll(expr).total);
     return result >=0 ? result : 0;
 }
 
