@@ -1,4 +1,3 @@
-import {getDefaultSkills} from "./Skill";
 import DiceRoller from 'rpg-dice-roller';
 
 export default class Characteristic {

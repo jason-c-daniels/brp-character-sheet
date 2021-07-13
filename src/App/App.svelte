@@ -225,7 +225,7 @@
                 <mwc-list-item>Set skill defaults</mwc-list-item>
             </mwc-list>
         </div>
-        <div id="appContent" slot="appContent" >
+        <div slot="appContent" >
             <mwc-top-app-bar-fixed on:MDCTopAppBar:nav={toggleDrawer}>
                 <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
                 <div slot="title"><span>{app_name}</span></div>
@@ -251,9 +251,8 @@
                           containerStyles="height:92vh;color:#333333; background-color:#EFEFEF;"/>
             </div>
         {:else}
-            <div id="content" class="scrollbox" style="{activeIndex === 0 ? '' : ''}">
+            <div id="content"  >
                 {#if activeIndex === 0}
-                <div id="worksheet" >
                     <Worksheet bind:worksheet={worksheet}
                                on:skill_selected={(e)=>{
                                     selectedAbilityValue =e.detail.value;
@@ -298,8 +297,7 @@
                                    rollResultsDialogElement.show(heading, result.rollValue,formatResult(result.rollResult));
                                }}
                     />
-                        <div style="width: 10pt; height: 0.25in"></div>
-                    </div>
+                    <div style="width: 10pt; height: 0.25in"></div>
 
                 {:else if activeIndex === 1}
                     <About />
