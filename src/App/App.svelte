@@ -281,7 +281,7 @@
                                    let heading = formatRollName(e.detail.name,e.detail.value);
                                    let damage = -1;
                                    if (result.rollResult.success) {
-                                        damage=rollDamage(e.detail.damage,worksheet.derivedCharacteristics.damageBonus,result.martialArtsResult.success);
+                                        damage=rollDamage(e.detail.damage,worksheet.derivedCharacteristics.damageBonus,result.martialArtsResult.success, result.rollResult.special);
                                    }
                                    rollResultsDialogElement.show(heading, result.rollValue,formatResult(result.rollResult),damage);
                                }}

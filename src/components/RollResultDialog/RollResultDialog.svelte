@@ -17,6 +17,7 @@ export function show(headingName,rollValue,rollDescription, damageValue=-1) {
     damage=damageValue;
     rollResultDialogElement.show();
 }
+
 export function hide() {
     rollResultDialogElement.close();
 }
@@ -28,7 +29,7 @@ export function hide() {
     <h3>Roll: {value}</h3>
     <p>{description}</p>
 
-    {#if (damage >= 0)}
+    {#if (damage >= 0 || !Number.isInteger(damage))}
         <h3>Damage: {damage} </h3>
     {/if}
 

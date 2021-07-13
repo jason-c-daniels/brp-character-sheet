@@ -55,22 +55,32 @@ export function formatResult(result) {
     return resultString;
 }
 
-export function rollDamage(diceExpression,damageBonus="none",isDoubled=false) {
-    if (isDoubled) {
-        diceExpression="2*"+diceExpression;
+export function rollDamage(diceExpression,damageBonus="none",isDoubled=false,isMaximum=false) {
+    try {
+        if (isDoubled) {
+            diceExpression = "2*" + diceExpression;
+        }
+
+        let expr = diceExpression.toLowerCase();
+        if (isMaximum) {
+            // convert the first XdN to X*N to compute the maximum value for the attack die.
+            expr = expr.replace("d","*");
+        }
+
+        expr = expr.replace("1⁄2db", "db/2");
+        expr = expr.replace("1/2db", "db/2");
+        expr = expr.replace("db", damageBonus.toLowerCase());
+        expr = expr.replace("none", "0");
+        expr = expr.replace("+-", "-");
+        expr = expr.replace("++", "+");
+        let result = Math.round(diceRoller.roll(expr).total);
+        return result >= 0 ? result : 0;
+
     }
-
-    let expr=diceExpression.toLowerCase();
-    expr = expr.replace("1⁄2db","db/2");
-    expr = expr.replace("1/2db","db/2");
-    expr = expr.replace("db",damageBonus.toLowerCase());
-    expr = expr.replace("none","0");
-    expr = expr.replace("+-","-");
-    expr = expr.replace("++","+");
-    let result=Math.round(diceRoller.roll(expr).total);
-    return result >=0 ? result : 0;
+    catch(err) {
+        return err;
+    }
 }
-
 export function formatRollName(rollName,targetValue) {
     // find last paren (if any)
     let li=rollName.lastIndexOf("(");
@@ -80,3 +90,4 @@ export function formatRollName(rollName,targetValue) {
     }
     return rollName+' ('+targetValue.toString()+')';
 }
+
